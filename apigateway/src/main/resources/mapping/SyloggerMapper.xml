@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzl.mapper.SyloggerMapper" >
+  <resultMap id="BaseResultMap" type="com.zzl.entity.Sylogger" >
+    <id column="SYSLOGID" property="syslogid" jdbcType="VARCHAR" />
+    <result column="SYSREQIP" property="sysreqip" jdbcType="VARCHAR" />
+    <result column="SYSREQURL" property="sysrequrl" jdbcType="VARCHAR" />
+    <result column="SYSSVRNAM" property="syssvrnam" jdbcType="VARCHAR" />
+    <result column="SYSMTDNAM" property="sysmtdnam" jdbcType="VARCHAR" />
+    <result column="SYSREQPAM" property="sysreqpam" jdbcType="VARCHAR" />
+    <result column="SYSREQTIM" property="sysreqtim" jdbcType="TIMESTAMP" />
+    <result column="SYSRSPRST" property="sysrsprst" jdbcType="CHAR" />
+    <result column="SYSFALCOD" property="sysfalcod" jdbcType="CHAR" />
+    <result column="SYSRSPTIM" property="sysrsptim" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SYSLOGID, SYSREQIP, SYSREQURL, SYSSVRNAM, SYSMTDNAM, SYSREQPAM, SYSREQTIM, SYSRSPRST, 
+    SYSFALCOD, SYSRSPTIM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sylogger
+    where SYSLOGID = #{syslogid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sylogger
+    where SYSLOGID = #{syslogid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzl.entity.Sylogger" >
+    insert into sylogger (SYSLOGID, SYSREQIP, SYSREQURL, 
+      SYSSVRNAM, SYSMTDNAM, SYSREQPAM, 
+      SYSREQTIM, SYSRSPRST, SYSFALCOD, 
+      SYSRSPTIM)
+    values (#{syslogid,jdbcType=VARCHAR}, #{sysreqip,jdbcType=VARCHAR}, #{sysrequrl,jdbcType=VARCHAR}, 
+      #{syssvrnam,jdbcType=VARCHAR}, #{sysmtdnam,jdbcType=VARCHAR}, #{sysreqpam,jdbcType=VARCHAR}, 
+      #{sysreqtim,jdbcType=TIMESTAMP}, #{sysrsprst,jdbcType=CHAR}, #{sysfalcod,jdbcType=CHAR}, 
+      #{sysrsptim,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzl.entity.Sylogger" >
+    insert into sylogger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="syslogid != null" >
+        SYSLOGID,
+      </if>
+      <if test="sysreqip != null" >
+        SYSREQIP,
+      </if>
+      <if test="sysrequrl != null" >
+        SYSREQURL,
+      </if>
+      <if test="syssvrnam != null" >
+        SYSSVRNAM,
+      </if>
+      <if test="sysmtdnam != null" >
+        SYSMTDNAM,
+      </if>
+      <if test="sysreqpam != null" >
+        SYSREQPAM,
+      </if>
+      <if test="sysreqtim != null" >
+        SYSREQTIM,
+      </if>
+      <if test="sysrsprst != null" >
+        SYSRSPRST,
+      </if>
+      <if test="sysfalcod != null" >
+        SYSFALCOD,
+      </if>
+      <if test="sysrsptim != null" >
+        SYSRSPTIM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="syslogid != null" >
+        #{syslogid,jdbcType=VARCHAR},
+      </if>
+      <if test="sysreqip != null" >
+        #{sysreqip,jdbcType=VARCHAR},
+      </if>
+      <if test="sysrequrl != null" >
+        #{sysrequrl,jdbcType=VARCHAR},
+      </if>
+      <if test="syssvrnam != null" >
+        #{syssvrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysmtdnam != null" >
+        #{sysmtdnam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysreqpam != null" >
+        #{sysreqpam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysreqtim != null" >
+        #{sysreqtim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysrsprst != null" >
+        #{sysrsprst,jdbcType=CHAR},
+      </if>
+      <if test="sysfalcod != null" >
+        #{sysfalcod,jdbcType=CHAR},
+      </if>
+      <if test="sysrsptim != null" >
+        #{sysrsptim,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzl.entity.Sylogger" >
+    update sylogger
+    <set >
+      <if test="sysreqip != null" >
+        SYSREQIP = #{sysreqip,jdbcType=VARCHAR},
+      </if>
+      <if test="sysrequrl != null" >
+        SYSREQURL = #{sysrequrl,jdbcType=VARCHAR},
+      </if>
+      <if test="syssvrnam != null" >
+        SYSSVRNAM = #{syssvrnam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysmtdnam != null" >
+        SYSMTDNAM = #{sysmtdnam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysreqpam != null" >
+        SYSREQPAM = #{sysreqpam,jdbcType=VARCHAR},
+      </if>
+      <if test="sysreqtim != null" >
+        SYSREQTIM = #{sysreqtim,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysrsprst != null" >
+        SYSRSPRST = #{sysrsprst,jdbcType=CHAR},
+      </if>
+      <if test="sysfalcod != null" >
+        SYSFALCOD = #{sysfalcod,jdbcType=CHAR},
+      </if>
+      <if test="sysrsptim != null" >
+        SYSRSPTIM = #{sysrsptim,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SYSLOGID = #{syslogid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzl.entity.Sylogger" >
+    update sylogger
+    set SYSREQIP = #{sysreqip,jdbcType=VARCHAR},
+      SYSREQURL = #{sysrequrl,jdbcType=VARCHAR},
+      SYSSVRNAM = #{syssvrnam,jdbcType=VARCHAR},
+      SYSMTDNAM = #{sysmtdnam,jdbcType=VARCHAR},
+      SYSREQPAM = #{sysreqpam,jdbcType=VARCHAR},
+      SYSREQTIM = #{sysreqtim,jdbcType=TIMESTAMP},
+      SYSRSPRST = #{sysrsprst,jdbcType=CHAR},
+      SYSFALCOD = #{sysfalcod,jdbcType=CHAR},
+      SYSRSPTIM = #{sysrsptim,jdbcType=TIMESTAMP}
+    where SYSLOGID = #{syslogid,jdbcType=VARCHAR}
+  </update>
+</mapper>

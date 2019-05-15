@@ -1,0 +1,13 @@
+server:
+  port: 2582
+
+eureka:
+  instance:
+    hostname: eureka-server02
+  client:
+    # 注册中心不需要注册自己
+    #register-with-eureka: false
+    # 注册中心不需要去发现服务
+    #fetch-registry: false
+    service-url:
+      defaultZone: http://eureka-server01:2581/eureka

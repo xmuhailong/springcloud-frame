@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        # eureka client id
+        service-id: spring-cloud-security
+      # by name
+      name: apigateway-db, apigateway
+
+  application:
+    name: apigateway
+
+# register first, or cannot find spring-cloud-security
+eureka:
+  client:
+    service-url:
+      # register two centers
+      defaultZone: http://eureka-server01:2581/eureka, http://eureka-server02:2582/eureka
