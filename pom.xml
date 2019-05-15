@@ -10,6 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <!-- 父工程打包为POM -->
     <packaging>pom</packaging>
 
     <modules>
