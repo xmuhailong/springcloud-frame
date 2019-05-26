@@ -53,10 +53,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @return TokenStore
      * @throws
      */
-    @Bean
-    public TokenStore tokenStore(){
-        return new JdbcTokenStore(dataSource);
-    }
+//    @Bean
+//    public TokenStore tokenStore(){
+//        return new JdbcTokenStore(dataSource);
+//    }
 
     @Bean // 声明 ClientDetails实现
     public ClientDetailsService clientDetails() {
@@ -83,7 +83,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         //endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
 
         endpoints.authenticationManager(authenticationManager);
-        endpoints.tokenStore(tokenStore());
+        //endpoints.tokenStore(tokenStore());
         endpoints.setClientDetailsService(clientDetails());
 
         // 配置TokenServices参数
@@ -111,9 +111,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         //enable client to get the authenticated when using the /oauth/token to get a access token
         //there is a 401 authentication is required if it doesn't allow form authentication for clients when access /oauth/token
         oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-                "isAuthenticated()");
+                "permitAll()");
         oauthServer.allowFormAuthenticationForClients();
-
     }
 
 }

@@ -1,7 +1,3 @@
 
 server:
   port: 2661
-security:
-  oauth2:
-    resource:
-      id: testid

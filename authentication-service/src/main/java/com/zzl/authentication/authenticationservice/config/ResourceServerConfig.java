@@ -42,6 +42,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("authorize-server"); //重点，设置资源id
+        // 重点，设置资源id
+        resources.resourceId("authorize-server");
     }
 }
