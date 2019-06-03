@@ -1,5 +1,6 @@
 package com.zzl.authentication.authenticationservice.config;
 
+import com.zzl.authentication.authenticationservice.security.MyRedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.approval.ApprovalStore;
+import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -46,23 +49,25 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private DataSource dataSource;
 
-    /**
-     * @Title: tokenStore
-     * @Description: 用户验证信息的保存策略
-     * @param
-     * @return TokenStore
-     * @throws
-     */
-//    @Bean
-//    public TokenStore tokenStore(){
-//        return new JdbcTokenStore(dataSource);
-//    }
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @Bean
+    public MyRedisTokenStore tokenStore() {
+        return new MyRedisTokenStore(redisConnectionFactory);
+    }
 
     @Bean // 声明 ClientDetails实现
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
     }
 
+    @Bean
+    public ApprovalStore approvalStore() {
+        TokenApprovalStore store = new TokenApprovalStore();
+        store.setTokenStore(tokenStore());
+        return store;
+    }
 
     /**
      *
@@ -70,6 +75,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception{
+        // 通过JDBC去查询数据库oauth_client_details表验证clientId信息
         clients.withClientDetails(clientDetails());
         clients.jdbc(dataSource);
     }
@@ -80,11 +86,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override // 配置框架应用上述实现
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        //endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
-
-        endpoints.authenticationManager(authenticationManager);
-        //endpoints.tokenStore(tokenStore());
-        endpoints.setClientDetailsService(clientDetails());
+        endpoints.authenticationManager(authenticationManager)
+                 .tokenStore(tokenStore())
+                 .setClientDetailsService(clientDetails());
 
         // 配置TokenServices参数
         DefaultTokenServices tokenServices = new DefaultTokenServices();
@@ -93,6 +97,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
         tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         tokenServices.setAccessTokenValiditySeconds( (int) TimeUnit.DAYS.toSeconds(30)); // 30天
+
         endpoints.tokenServices(tokenServices);
     }
 
@@ -110,9 +115,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
         //enable client to get the authenticated when using the /oauth/token to get a access token
         //there is a 401 authentication is required if it doesn't allow form authentication for clients when access /oauth/token
-        oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-                "permitAll()");
-        oauthServer.allowFormAuthenticationForClients();
+        oauthServer.tokenKeyAccess("permitAll()")
+                   .checkTokenAccess("permitAll()")
+                   .allowFormAuthenticationForClients();
     }
 
 }
