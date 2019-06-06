@@ -32,6 +32,7 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
 
     /**
      * 自定义验证方式
+     * 也可参考https://blog.csdn.net/fanbojiayou/article/details/79323315中AdminAuthenticationProvider来实现
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
