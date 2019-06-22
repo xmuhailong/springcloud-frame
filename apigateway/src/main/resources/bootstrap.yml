@@ -6,7 +6,7 @@ spring:
         # eureka client id
         service-id: spring-cloud-security
       # by name
-      name: apigateway-db, apigateway
+      name: apigateway-db, apigateway, zipkin
 
   application:
     name: apigateway

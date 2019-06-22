@@ -14,7 +14,7 @@ spring:
           username: xmuhailong
           password: hailong152
           # auth to scan directory dev and prd
-          search-paths: dev, apigateway, user, authentication
+          search-paths: dev, apigateway, authentication, zipkin
 
 # register
 eureka:

@@ -27,7 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyUserDetailsService myUserDetailsService;
 
     /**
-     * 配置系统用户，这里使用内存存储，添加了用户名为 user ，角色为 USER 的用户,
      * 用户认证
      */
     @Override

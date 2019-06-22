@@ -4,6 +4,7 @@ package com.zzl.authentication.authenticationservice.controller;
 
 import com.zzl.authentication.authenticationservice.entity.User;
 import com.zzl.myredis.utils.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

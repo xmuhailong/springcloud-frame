@@ -8,7 +8,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @EnableEurekaClient
 @EnableAuthorizationServer
-@SpringBootApplication(scanBasePackages = {"com.zzl.authentication.authenticationservice", "com.zzl.myredis"})
+@SpringBootApplication
 @MapperScan(basePackages = "com.zzl.authentication.authenticationservice.mapper")
 public class AuthenticationServiceApplication {
 

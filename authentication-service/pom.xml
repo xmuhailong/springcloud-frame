@@ -15,6 +15,9 @@
     <description>oauth2 and jwt</description>
 
     <dependencies>
+
+
+
         <dependency>
             <groupId>com.zzl</groupId>
             <artifactId>my-redis</artifactId>
@@ -61,13 +64,6 @@
             <scope>runtime</scope>
         </dependency>
         <!-- sql end -->
-
-        <!-- redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${redis.version}</version>
-        </dependency>
 
         <!-- oauth2 needed -->
         <dependency>
