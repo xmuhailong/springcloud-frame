@@ -15,9 +15,6 @@
     <description>oauth2 and jwt</description>
 
     <dependencies>
-
-
-
         <dependency>
             <groupId>com.zzl</groupId>
             <artifactId>my-redis</artifactId>

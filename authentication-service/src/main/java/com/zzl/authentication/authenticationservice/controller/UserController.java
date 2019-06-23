@@ -4,7 +4,8 @@ package com.zzl.authentication.authenticationservice.controller;
 
 import com.zzl.authentication.authenticationservice.entity.User;
 import com.zzl.myredis.utils.RedisUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RestController
 public class UserController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     /**
      * 获取授权用户的信息
      * @param user 当前用户
@@ -30,6 +32,9 @@ public class UserController {
     @GetMapping("/user")
     public Principal user(Principal user){
         System.out.println(RedisUtils.get("namess"));
+        String name = "rmb";
+        LOGGER.info("namess is {}" + name);
+        LOGGER.info("zzlong test elk");
         return user;
     }
 
