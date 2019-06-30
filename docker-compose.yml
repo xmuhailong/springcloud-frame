@@ -1,0 +1,35 @@
+version: "3"
+services:
+  eureka-server01:
+    image: zzl/eureka
+    hostname: eureka-server01
+    networks:
+      - eureka-net
+    ports:
+      - "2581:2581"
+    environment:
+      - spring.profiles.active=server01
+
+  eureka-server02:
+    image: zzl/eureka
+    hostname: eureka-server02
+    networks:
+      - eureka-net
+    ports:
+      - "2582:2582"
+    environment:
+      - spring.profiles.active=server02
+
+  spring-cloud-config:
+    image: zzl/spring-cloud-config
+    networks:
+      - eureka-net
+    ports:
+      - "2583:2583"
+    depends_on:
+      - eureka-server01
+      - eureka-server02
+
+networks:
+  eureka-net:
+    driver: bridge

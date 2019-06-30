@@ -48,6 +48,8 @@
 
         <!-- logback-redis-appender -->
         <logback.redis.appender>1.1.5</logback.redis.appender>
+
+        <docker.image.prefix>zzl</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
@@ -104,6 +106,25 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.11</version>
+                <configuration>
+                    <!-- image名字 -->
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <!-- docker文件路径 -->
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>

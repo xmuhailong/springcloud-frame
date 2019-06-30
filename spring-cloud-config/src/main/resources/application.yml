@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: spring-cloud-security
+    name: spring-cloud-config
 
   # spring cloud security
   cloud:
@@ -12,7 +12,7 @@ spring:
         git:
           uri: https://github.com/xmuhailong/BASE_Config_Service.git
           username: xmuhailong
-          password: hailong152
+          password: hailong@123
           # auth to scan directory dev and prd
           search-paths: dev, apigateway, authentication, zipkin
 
@@ -23,8 +23,8 @@ eureka:
       defaultZone: http://eureka-server01:2581/eureka, http://eureka-server02:2582/eureka
 
 # after springboot 2.0, when use /refresh,you need security this
-management:
-  endpoints:
-    web:
-      exposure:
-        include: bus-refresh
+#management:
+ # endpoints:
+  #  web:
+   #   exposure:
+   #     include: bus-refresh
