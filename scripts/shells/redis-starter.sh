@@ -1,2 +1,2 @@
 #!/bin/bash
-redis-server
+redis-server /Users/zhaozhonglong/pragramfiles/redis/redis-5.0.5/redis.conf

@@ -5,9 +5,9 @@ spring:
       discovery:
         enabled: true
         # eureka client id
-        service-id: spring-cloud-security
+        service-id: spring-cloud-config
       # by name
-      name: authentication-db, zipkin
+      name: authentication-db, zipkin, redisConfig
 
   application:
     name: authentication-service

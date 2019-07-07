@@ -30,6 +30,24 @@ services:
       - eureka-server01
       - eureka-server02
 
+  apigateway:
+    image: zzl/apigateway
+    networks:
+          - eureka-net
+    ports:
+      - "2585:2585"
+    depends_on:
+      - spring-cloud-config
+
+  authentication-service:
+    image: zzl/authentication-service
+    networks:
+          - eureka-net
+    ports:
+      - "2661:2661"
+    depends_on:
+      - apigateway
+
 networks:
   eureka-net:
     driver: bridge
