@@ -3,6 +3,8 @@ package com.zzl.authentication.authenticationservice.controller;
 
 
 import com.zzl.authentication.authenticationservice.entity.User;
+import com.zzl.base.enums.ResultEnum;
+import com.zzl.base.exception.AppException;
 import com.zzl.myredis.utils.RedisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -52,7 +54,7 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
         result.put("result", user);
 
-        return result;
+        throw new AppException(ResultEnum.MIDDLE_SCHOOL);
     }
 
     @ApiOperation(value = "根据用户ID查询用户", notes = "查询用户信息")

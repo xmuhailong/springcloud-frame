@@ -1,6 +1,7 @@
 package com.zzl;
 
 import com.zzl.filter.AccessFilter;
+import com.zzl.filter.ResponseFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -23,6 +24,15 @@ public class ApigatewayApplication {
     @Bean
     public AccessFilter accessFilter(){
         return new AccessFilter();
+    }
+
+    /**
+     * 返回信息校验
+     * @return 返回信息校验
+     */
+    @Bean
+    public ResponseFilter responseFilter() {
+        return new ResponseFilter();
     }
 
 }
