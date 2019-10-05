@@ -14,7 +14,7 @@ spring:
           username: xmuhailong
           password: hailong@123
           # auth to scan directory dev and prd
-          search-paths: dev/**
+          search-paths: dev
 
 # register
 eureka:

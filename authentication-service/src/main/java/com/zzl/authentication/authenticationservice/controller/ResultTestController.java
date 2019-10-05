@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ResultTestController {
     public Result say() {
-        return ResultUtil.success();
+        return ResultUtil.success(null);
     }
 }
