@@ -11,6 +11,8 @@ spring:
   application:
     name: meetingroom
 
+
+
 # register first, or cannot find spring-cloud-security
 eureka:
   client:

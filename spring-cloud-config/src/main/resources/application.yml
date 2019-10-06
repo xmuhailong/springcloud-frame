@@ -4,16 +4,13 @@ server:
 spring:
   application:
     name: spring-cloud-config
-
-  # spring cloud security
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/xmuhailong/BASE_Config_Service.git
+          uri: https://github.com/xmuhailong/BASE_Config_Service
           username: xmuhailong
           password: hailong@123
-          # auth to scan directory dev and prd
           search-paths: dev
 
 # register

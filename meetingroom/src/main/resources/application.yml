@@ -1,2 +1,6 @@
 server:
   port: 2662
+
+spring:
+  application:
+    name: meetingroom
