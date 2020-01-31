@@ -10,7 +10,7 @@ spring:
         git:
           uri: https://github.com/xmuhailong/BASE_Config_Service
           username: xmuhailong
-          password: hailong@123
+          password: Hailong@123
           search-paths: dev
 
 # register
