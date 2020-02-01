@@ -4,8 +4,10 @@ import com.zzl.authentication.authenticationservice.constant.StaticParams;
 import com.zzl.authentication.authenticationservice.security.MyAuthenticationProvider;
 import com.zzl.authentication.authenticationservice.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +18,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * 安全配置
  * @ EnableWebSecurity 启用web安全配置
  * @ EnableGlobalMethodSecurity 启用全局方法安全注解，就可以在方法上使用注解来对请求进行过滤
+ *
+ * 在ResourceServerProperties中，定义了它的order默认值为SecurityProperties.ACCESS_OVERRIDE_ORDER - 1;
+ * 是大于100的,即WebSecurityConfigurerAdapter的配置的拦截要优先于ResourceServerConfigurerAdapter，
+ * 优先级高的http配置是可以覆盖优先级低的配置的
+ *
  */
 @Configuration
 @EnableWebSecurity
@@ -52,19 +59,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 硬编码形式白名单
-        http
-            .authorizeRequests()
-            .antMatchers(
-                StaticParams.PATHREGX.API,
-                StaticParams.PATHREGX.CSS,
-                StaticParams.PATHREGX.JS,
-                StaticParams.PATHREGX.IMG).permitAll()//允许用户任意访问
-                .anyRequest().authenticated()//其余所有请求都需要认证后才可访问
-                .and()
-                .formLogin()
-                .permitAll();//允许用户任意访问
-
-        http.csrf().disable();
+//        http
+//            .authorizeRequests()
+//            .antMatchers(
+//                StaticParams.PATHREGX.API,
+//                StaticParams.PATHREGX.CSS,
+//                StaticParams.PATHREGX.JS,
+//                StaticParams.PATHREGX.IMG).permitAll()//允许用户任意访问
+//                .antMatchers(StaticParams.SWAGGERUI.getSwaggerResource()).permitAll()// Swagger的链接允许通过
+//                ;//允许用户任意访问
+//
+//        http.csrf().disable();
     }
 
     /**

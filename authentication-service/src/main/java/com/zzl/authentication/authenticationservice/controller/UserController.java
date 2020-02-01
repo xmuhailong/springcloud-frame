@@ -3,8 +3,6 @@ package com.zzl.authentication.authenticationservice.controller;
 
 
 import com.zzl.authentication.authenticationservice.entity.User;
-import com.zzl.base.enums.ResultEnum;
-import com.zzl.base.exception.AppException;
 import com.zzl.myredis.utils.RedisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +43,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
-    @RequestMapping("/getDemo")
+    @GetMapping("/getDemo")
     public Map<String , Object> getDemo() {
         User user = new User();
         user.setPassword("zzl");
@@ -54,16 +52,15 @@ public class UserController {
         Map<String, Object> result = new HashMap<>();
         result.put("result", user);
 
-        throw new AppException(ResultEnum.MIDDLE_SCHOOL);
+        return result;
     }
 
     @ApiOperation(value = "根据用户ID查询用户", notes = "查询用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path", dataType = "int"),
-            @ApiImplicitParam(name = "name", value = "用户姓名", required = false, paramType = "query", dataType = "String")
     })
-    @RequestMapping("/user/{id}")
-    public User getUserByIdAndName(@PathVariable("id") int id, @RequestParam("name") String name) {
+    @GetMapping("/user/{id}")
+    public User getUserByIdAndName(@PathVariable("id") int id) {
         User user = new User();
         user.setUid("1112");
         user.setPassword("zzl-getUser");

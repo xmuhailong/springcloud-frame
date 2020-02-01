@@ -1,5 +1,6 @@
 package com.zzl.authentication.authenticationservice.config;
 
+import com.zzl.authentication.authenticationservice.constant.StaticParams;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,7 +24,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http.requestMatcher(new OAuth2RequestedMatcher())
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
+                .antMatchers(StaticParams.SWAGGERUI.getSwaggerResource()).permitAll()
+                .antMatchers(
+                    StaticParams.PATHREGX.API,
+                    StaticParams.PATHREGX.CSS,
+                    StaticParams.PATHREGX.JS,
+                    StaticParams.PATHREGX.IMG).permitAll()//允许用户任意访问
                 .anyRequest().authenticated();
+
+        http.csrf().disable();
     }
 
     /**

@@ -90,7 +90,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 
     /**
-     * 这个方法主要的作用用于控制token的端点等信息
+     * @description 用来配置授权（authorization）以及令牌（token）的访问端点和令牌服务(token services)
+     *
+     * @param
+     * @return
+     * @author zhaozhonglong
+     * @date  2020/1/31 16:58:31
      */
     @Override // 配置框架应用上述实现
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
