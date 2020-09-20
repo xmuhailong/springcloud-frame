@@ -1,7 +1,8 @@
 package com.zzl.authentication.authenticationservice.security;
 
-import com.zzl.authentication.authenticationservice.entity.User;
-import com.zzl.authentication.authenticationservice.service.IUserService;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.zzl.db.user.entity.User;
+import com.zzl.db.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,9 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO 此处可以验证密码的，密码从何传递过来？难道数据库不允许username重复？
-        User user = iUserService.selectByUsername(username);
+        User user = iUserService.getOne(Wrappers.<User>lambdaQuery()
+                        .eq(User::getUsername, username),
+                false);
 
         if (null == user) {
             throw new UsernameNotFoundException("用户["+username+"]不存在！");

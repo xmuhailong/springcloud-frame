@@ -1,7 +1,7 @@
 package com.zzl.authentication.authenticationservice.security;
 
 
-import com.zzl.authentication.authenticationservice.entity.User;
+import com.zzl.db.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

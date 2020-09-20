@@ -1,8 +1,7 @@
 package com.zzl.authentication.authenticationservice.controller;
 
 
-
-import com.zzl.authentication.authenticationservice.entity.User;
+import com.zzl.db.user.entity.User;
 import com.zzl.myredis.utils.RedisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -10,7 +9,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -62,7 +60,6 @@ public class UserController {
     @GetMapping("/user/{id}")
     public User getUserByIdAndName(@PathVariable("id") int id) {
         User user = new User();
-        user.setUid("1112");
         user.setPassword("zzl-getUser");
         user.setUsername("hello-getUser");
 

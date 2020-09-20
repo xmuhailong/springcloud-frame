@@ -1,6 +1,5 @@
 package com.zzl.authentication.authenticationservice;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -11,7 +10,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAuthorizationServer
 @SpringBootApplication
 @EnableSwagger2
-@MapperScan(basePackages = "com.zzl.authentication.authenticationservice.mapper")
 public class AuthenticationServiceApplication {
 
     public static void main(String[] args) {

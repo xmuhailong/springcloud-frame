@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/zzl_user?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: hailong1
+
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+      initial-size: 10
+      max-active: 50
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 1 FROM DUAL
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      filters: stat,wall
+
+server:
+  port: 8080
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**.xml
+  type-aliases-package: com.zzl.db.*.entity
+  global-config:
+    id-type: 0
+    field-strategy: 2
+    capital-mode: true
+    refresh-mapper: true
