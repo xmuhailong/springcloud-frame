@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * 安全配置
@@ -29,6 +31,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
+
+
+
+    /**
+     * @description 密码加密工具类，它可以实现不可逆的加密
+     * @param []
+     * @return org.springframework.security.crypto.password.PasswordEncoder
+     * @author zhaozhonglong
+     * @date  2021/1/16 11:57:08
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /**
+     * 密码模式下必须注入的bean authenticationManagerBean
+     * 认证是由 AuthenticationManager 来管理的，
+     * 但是真正进行认证的是 AuthenticationManager 中定义的AuthenticationProvider。
+     *  AuthenticationManager 中可以定义有多个 AuthenticationProvider
+     */
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
     /**
      * 用户认证
@@ -55,6 +83,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // 允许匿名访问所有接口
+        http.authorizeRequests()
+                .antMatchers("/**").permitAll();
         // 硬编码形式白名单
 //        http
 //            .authorizeRequests()
@@ -69,16 +100,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.csrf().disable();
     }
 
-    /**
-     * 密码模式下必须注入的bean authenticationManagerBean
-     * 认证是由 AuthenticationManager 来管理的，
-     * 但是真正进行认证的是 AuthenticationManager 中定义的AuthenticationProvider。
-     *  AuthenticationManager 中可以定义有多个 AuthenticationProvider
-     */
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+
 
 }

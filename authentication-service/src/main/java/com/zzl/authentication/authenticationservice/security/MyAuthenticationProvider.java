@@ -2,14 +2,14 @@ package com.zzl.authentication.authenticationservice.security;
 
 import java.util.Collection;
 
-import javax.annotation.Resource;
 
-import com.zzl.authentication.authenticationservice.service.PasswordService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
@@ -17,9 +17,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 @Component
 public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
-    /** 规则校验 */
-    @Resource(name = "passwordService")
-    private PasswordService passwordService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 构造函数中注入
     public MyAuthenticationProvider(MyUserDetailsService myUserDetailsService)
@@ -39,8 +38,9 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
         MyUserDetails userDetails = (MyUserDetails)
                 this.getUserDetailsService().loadUserByUsername(username);
 
-        //按登录规则校验用户
-        passwordService.validateRules(userDetails.getUser(), password);
+        if (!userDetails.getPassword().equals(passwordEncoder.encode(password))) {
+            // TODO 密码验证不成功
+        }
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         // 设置为已验证(已找到原因，阅读UsernamePasswordAuthenticationToken源码，两个构造器的区别)

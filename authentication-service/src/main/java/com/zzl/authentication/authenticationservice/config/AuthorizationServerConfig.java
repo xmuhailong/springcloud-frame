@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -38,7 +39,7 @@ import javax.sql.DataSource;
  *	implicit
  *	refresh_token
  *	配置授权的相关信息，配置的核心都在这里
-在这里进行 配置客户端，配置token存储方式等
+ *	在这里进行 配置客户端，配置token存储方式等
  * @author zhaozhonglong
  */
 @Configuration
@@ -78,8 +79,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     /**
-     *
-     * 这个方法主要是用于校验注册的第三方客户端的信息，
+     * 这个方法主要是用于校验注册的第三方客户端的信息
+     * 有两种:
+     *  一种是基于JDBC JdbcClientDetailsService，
+     *  一种是基于内存的InMemoryClientDetailsServiceBuilder
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception{
@@ -99,19 +102,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override // 配置框架应用上述实现
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.authenticationManager(authenticationManager)
-                 .tokenStore(tokenStore())
+
+        endpoints.authenticationManager(authenticationManager) // 只有authenticationManager 才支持密码模式
+                 .tokenStore(tokenStore()) // token存储方式
                  .setClientDetailsService(clientDetails());
 
+        endpoints.tokenServices(defaultTokenServices());
+    }
+
+    @Primary
+    @Bean
+    public DefaultTokenServices defaultTokenServices(){
         // 配置TokenServices参数
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(endpoints.getTokenStore());
+        tokenServices.setTokenStore(tokenStore());
         tokenServices.setSupportRefreshToken(true);
-        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
-        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
-        tokenServices.setAccessTokenValiditySeconds( (int) TimeUnit.DAYS.toSeconds(30)); // 30天
+        tokenServices.setClientDetailsService(clientDetails());
 
-        endpoints.tokenServices(tokenServices);
+        // 设置token有效期30天
+        tokenServices.setAccessTokenValiditySeconds( (int) TimeUnit.DAYS.toSeconds(30));
+        //默认30天
+        tokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 7);
+
+        return tokenServices;
     }
 
     /**

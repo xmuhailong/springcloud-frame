@@ -22,7 +22,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO 此处可以验证密码的，密码从何传递过来？难道数据库不允许username重复？
         User user = iUserService.getOne(Wrappers.<User>lambdaQuery()
                         .eq(User::getUsername, username),
                 false);
