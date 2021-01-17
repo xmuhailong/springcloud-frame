@@ -32,25 +32,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-
-
     /**
-     * @description 密码加密工具类，它可以实现不可逆的加密
+     * @description 配置使用的加密方式
      * @param []
-     * @return org.springframework.security.crypto.password.PasswordEncoder
+     * @return PasswordEncoder
      * @author zhaozhonglong
-     * @date  2021/1/16 11:57:08
+     * @date  2021/1/16 21:41:36
      */
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     /**
+     * @description 认证管理类
      * 密码模式下必须注入的bean authenticationManagerBean
      * 认证是由 AuthenticationManager 来管理的，
      * 但是真正进行认证的是 AuthenticationManager 中定义的AuthenticationProvider。
-     *  AuthenticationManager 中可以定义有多个 AuthenticationProvider
+     * AuthenticationManager 中可以定义有多个 AuthenticationProvider
+     *
+     * 当我们使用 authentication-provider 元素来定义一个 AuthenticationProvider 时，
+     * 如果没有指定对应关联的 AuthenticationProvider 对象，
+     * Spring Security 默认会使用 DaoAuthenticationProvider（myAuthenticationProvider继承此类）。
+     *
+     *
+     * DaoAuthenticationProvider 在进行认证的时候需要一个 UserDetailsService 来获取用户的信息 UserDetails，
+     * 其中包括用户名、密码和所拥有的权限等
+     * 所以configure中，配置了myAuthenticationProvider和myUserDetailsService
+     *
+     * 所以如果我们需要改变认证的方式，我们可以实现自己的 AuthenticationProvider；
+     * 如果需要改变认证的用户信息来源，我们可以实现 UserDetailsService
+     *
+     * @param []
+     * @return AuthenticationManager
+     * @author zhaozhonglong
+     * @date  2021/1/16 21:43:34
      */
     @Override
     @Bean
@@ -59,12 +75,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 用户认证
+     * @description 配置校验的具体类
+     *
+     * @param [auth]
+     * @return void
+     * @author zhaozhonglong
+     * @date  2021/1/16 21:45:31
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(myAuthenticationProvider)
-            .userDetailsService(myUserDetailsService);
+        auth.authenticationProvider(myAuthenticationProvider) // authenticate方法，控制校验用户以及其他权限的判断
+            .userDetailsService(myUserDetailsService) // loadUserByUsername此方法用于根据用户名获取用户信息
+            .passwordEncoder(passwordEncoder()); // 设置校验方式
     }
 
     /**

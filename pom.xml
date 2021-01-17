@@ -67,6 +67,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
         </dependency>
+
         <!-- Sends trace data to zipkin over http (defaults to http://localhost:9411/api/v2/spans) -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -83,6 +84,13 @@
             <artifactId>logback-redis-appender</artifactId>
             <version>${logback.redis.appender}</version>
         </dependency>
+
+        <!--   基础包  -->
+<!--        <dependency>-->
+<!--            <groupId>com.zzl.base</groupId>-->
+<!--            <artifactId>base</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 

@@ -15,10 +15,25 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
+/**
+ * @description 进行认证
+ * 参考WebSecurityConfig.authenticationManagerBean方法
+ *
+ * DaoAuthenticationProvider 在进行认证的时候需要一个 UserDetailsService 来获取用户的信息 UserDetails
+ *
+ * 所以如果我们需要改变认证的方式，我们可以实现自己的 AuthenticationProvider；
+ * 如果需要改变认证的用户信息来源，我们可以实现 UserDetailsService
+ *
+ * @param
+ * @return
+ * @author zhaozhonglong
+ * @date  2021/1/16 21:58:21
+ */
 @Component
 public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     // 构造函数中注入
     public MyAuthenticationProvider(MyUserDetailsService myUserDetailsService)
@@ -38,8 +53,8 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
         MyUserDetails userDetails = (MyUserDetails)
                 this.getUserDetailsService().loadUserByUsername(username);
 
-        if (!userDetails.getPassword().equals(passwordEncoder.encode(password))) {
-            // TODO 密码验证不成功
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+
         }
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();

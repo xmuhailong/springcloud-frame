@@ -10,11 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
+ * @description 需要改变认证的用户信息来源，我们可以实现 UserDetailsService
  * @author zhaozhonglong
- * @description
- * @date 2019/5/6 下午9:53
+ * @date  2021/1/16 22:02:59
  */
-
 @Configuration
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
@@ -27,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 false);
 
         if (null == user) {
-            throw new UsernameNotFoundException("用户["+username+"]不存在！");
+            throw new RuntimeException("asdfadfasfasdf");
         }
 
         MyUserDetails userDetails = new MyUserDetails();
