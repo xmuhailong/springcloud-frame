@@ -86,11 +86,11 @@
         </dependency>
 
         <!--   基础包  -->
-<!--        <dependency>-->
-<!--            <groupId>com.zzl.base</groupId>-->
-<!--            <artifactId>base</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.zzl.base</groupId>
+            <artifactId>base</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
