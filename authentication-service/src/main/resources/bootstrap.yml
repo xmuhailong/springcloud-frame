@@ -7,7 +7,7 @@ spring:
         # eureka client id
         service-id: spring-cloud-config
       # by name
-      name: authentication-db, zipkin, redisConfig
+      name: authentication-db, zipkin, redis-config
 
   application:
     name: authentication-service

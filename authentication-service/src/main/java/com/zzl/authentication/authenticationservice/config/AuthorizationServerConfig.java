@@ -20,8 +20,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
@@ -138,12 +137,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      *
      */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+
         //enable client to get the authenticated when using the /oauth/token to get a access token
         //there is a 401 authentication is required if it doesn't allow form authentication for clients when access /oauth/token
-        oauthServer.tokenKeyAccess("permitAll()")
+        security
+                    .tokenKeyAccess("permitAll()")
                    .checkTokenAccess("permitAll()")
                    .allowFormAuthenticationForClients();
+
+
     }
+
+
 
 }

@@ -26,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 false);
 
         if (null == user) {
-            throw new RuntimeException("asdfadfasfasdf");
+            throw new UsernameNotFoundException("用户不存在");
         }
 
         MyUserDetails userDetails = new MyUserDetails();
