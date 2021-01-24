@@ -1,4 +1,4 @@
-HELP.md
+git rm -r --cached .HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -16,6 +16,8 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+
+dump.rdb
 
 ### NetBeans ###
 /nbproject/private/
