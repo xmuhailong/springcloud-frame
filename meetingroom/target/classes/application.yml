@@ -1,0 +1,9 @@
+
+server:
+  port: 2662
+
+security:
+  oauth2:
+    resource:
+      id: meetingroom
+      user-info-uri: http://localhost:2585/auth/api/user #验证传入的令牌

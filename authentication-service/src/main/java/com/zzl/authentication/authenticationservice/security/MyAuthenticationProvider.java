@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
@@ -54,7 +55,7 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
                 this.getUserDetailsService().loadUserByUsername(username);
 
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-
+            throw new InvalidGrantException("from auth myUserDetailsService - match 密码用户名或密码验证失败");
         }
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();

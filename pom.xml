@@ -18,7 +18,8 @@
         <module>spring-cloud-config</module>
         <module>authentication-service</module>
         <module>apigateway</module>
-<!--        <module>db</module>-->
+        <module>meetingroom</module>
+        <!--        <module>db</module>-->
     </modules>
 
     <groupId>com.zzl.springcloud</groupId>

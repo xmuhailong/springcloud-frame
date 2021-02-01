@@ -53,19 +53,19 @@ public class AccessFilter extends ZuulFilter {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
 
-        String url = request.getRequestURL().toString();
-
-        logger.info("send {} request to {}", request.getMethod(), url);
-
-        Object accessToken = request.getHeader("Authorization");
-        if (!url.contains("/oauth/token") && null == accessToken) {
-            logger.warn("Authorization token is empty");
-            requestContext.setSendZuulResponse(false);
-            requestContext.setResponseStatusCode(401);
-            requestContext.setResponseBody("Authorization token is empty");
-            return null;
-        }
-        logger.info("Authorization token is ok");
+//        String url = request.getRequestURL().toString();
+//
+//        logger.info("send {} request to {}", request.getMethod(), url);
+//
+//        Object accessToken = request.getHeader("Authorization");
+////        if (!url.contains("/oauth/token") && null == accessToken) {
+////            logger.warn("Authorization token is empty");
+////            requestContext.setSendZuulResponse(false);
+////            requestContext.setResponseStatusCode(401);
+////            requestContext.setResponseBody("Authorization token is empty");
+////            return null;
+////        }
+//        logger.info("Authorization token is ok");
         return null;
     }
 }

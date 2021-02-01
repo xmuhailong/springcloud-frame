@@ -1,10 +1,12 @@
 package com.zzl.authentication.authenticationservice.config;
 
+import com.zzl.authentication.authenticationservice.constant.StaticParams;
 import com.zzl.authentication.authenticationservice.security.MyAuthenticationProvider;
 import com.zzl.authentication.authenticationservice.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -105,9 +107,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 允许匿名访问所有接口
-        http.authorizeRequests()
-                .antMatchers("/**").permitAll();
         // 硬编码形式白名单
 //        http
 //            .authorizeRequests()
@@ -120,6 +119,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                ;//允许用户任意访问
 //
 //        http.csrf().disable();
+        http.requestMatchers().antMatchers("/oauth/**")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/oauth/**").authenticated()
+                .and()
+                .csrf().disable();
     }
 
 

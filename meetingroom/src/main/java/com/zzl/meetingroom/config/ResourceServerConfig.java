@@ -1,32 +1,27 @@
-package com.zzl.authentication.authenticationservice.config;
+package com.zzl.meetingroom.config;
 
-import com.zzl.authentication.authenticationservice.custom.AuthExceptionEntryPoint;
-import com.zzl.authentication.authenticationservice.custom.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-import javax.servlet.http.HttpServletResponse;
 
 /**
- * 资源服务配置
- * @ EnableResourceServer 启用资源服务
+ * @author zhaozhonglong
+ * @version 1.0.0
+ * @date 2021/1/27 10:24 下午
  */
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true)   // 启用注解权限配置
-@Order(3)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private AuthExceptionEntryPoint authExceptionEntryPoint;
 
     @Autowired
     private CustomAccessDeniedHandler customAccessDeniedHandler;
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -51,5 +46,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         resources.authenticationEntryPoint(authExceptionEntryPoint)
                 .accessDeniedHandler(customAccessDeniedHandler);
     }
-
 }

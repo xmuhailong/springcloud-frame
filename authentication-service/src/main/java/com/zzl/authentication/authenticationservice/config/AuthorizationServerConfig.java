@@ -1,5 +1,7 @@
 package com.zzl.authentication.authenticationservice.config;
 
+import com.zzl.authentication.authenticationservice.custom.CustomBasicAuthenticationFilter;
+import com.zzl.authentication.authenticationservice.custom.CustomWebResponseExceptionTranslator;
 import com.zzl.authentication.authenticationservice.security.MyRedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,7 +22,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.util.concurrent.TimeUnit;
 import javax.sql.DataSource;
@@ -53,6 +54,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+
+    @Autowired
+    private CustomWebResponseExceptionTranslator customWebResponseExceptionTranslator;
+
+    @Autowired
+    private CustomBasicAuthenticationFilter customBasicAuthenticationFilter;
 
     @Bean
     public MyRedisTokenStore tokenStore() {
@@ -107,6 +114,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                  .setClientDetailsService(clientDetails());
 
         endpoints.tokenServices(defaultTokenServices());
+
+        // 指定异常处理方式
+        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
 
     @Primary
@@ -142,11 +152,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         //enable client to get the authenticated when using the /oauth/token to get a access token
         //there is a 401 authentication is required if it doesn't allow form authentication for clients when access /oauth/token
         security
-                    .tokenKeyAccess("permitAll()")
-                   .checkTokenAccess("permitAll()")
-                   .allowFormAuthenticationForClients();
+            .tokenKeyAccess("permitAll()")
+            .checkTokenAccess("isAuthenticated()")
+            .allowFormAuthenticationForClients();
 
-
+        // 增加client的校验规则
+        security.addTokenEndpointAuthenticationFilter(customBasicAuthenticationFilter);
     }
 
 
