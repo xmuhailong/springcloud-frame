@@ -1,12 +1,10 @@
 package com.zzl.authentication.authenticationservice.config;
 
-import com.zzl.authentication.authenticationservice.constant.StaticParams;
 import com.zzl.authentication.authenticationservice.security.MyAuthenticationProvider;
 import com.zzl.authentication.authenticationservice.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -98,7 +96,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 		antMatchers:使用ant风格的路径匹配
      * 		regexMatchers:使用正则表达式匹配路劲
      * anyRequest:匹配所有请求路劲
-     * 在匹配了请求路劲后，需要针对当前用户的信息对请求路劲进行安全处理。
+     * 在匹配了请求路劲后，需要针对当前用户的信息对请求路径进行安全处理。
      * 2:定制登录行为。
      *  	formLogin()方法定制登录操作
      *      loginPage()方法定制登录页面访问地址
@@ -107,18 +105,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // 硬编码形式白名单
-//        http
-//            .authorizeRequests()
-//            .antMatchers(
-//                StaticParams.PATHREGX.API,
-//                StaticParams.PATHREGX.CSS,
-//                StaticParams.PATHREGX.JS,
-//                StaticParams.PATHREGX.IMG).permitAll()//允许用户任意访问
-//                .antMatchers(StaticParams.SWAGGERUI.getSwaggerResource()).permitAll()// Swagger的链接允许通过
-//                ;//允许用户任意访问
-//
-//        http.csrf().disable();
         http.requestMatchers().antMatchers("/oauth/**")
                 .and()
                 .authorizeRequests()

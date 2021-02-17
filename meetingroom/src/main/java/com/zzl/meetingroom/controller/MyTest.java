@@ -1,12 +1,15 @@
 package com.zzl.meetingroom.controller;
 
-import org.apache.catalina.security.SecurityUtil;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.security.Principal;
 
 /**
@@ -31,7 +34,20 @@ public class MyTest {
      */
     @GetMapping("hello")
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
-    public String hello() {
+    public String hello() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        json = StringEscapeUtils.unescapeJavaScript(json);
+        json = json.replaceFirst("\"", "");
+        json = json.substring(0, json.length() - 1);
+
+        ObjectNode node = objectMapper.readValue(json, ObjectNode.class);
+
+        if (node.has("user")) {
+            System.out.println(node.get("user"));
+        }
+
         return "hello fuck you all time";
     }
 

@@ -1,11 +1,13 @@
 package com.zzl.meetingroom.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 
 /**
@@ -16,6 +18,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+    @Value("${spring.application.name}")
+    private String resourceId;
+
     @Autowired
     private AuthExceptionEntryPoint authExceptionEntryPoint;
 
@@ -29,7 +34,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .csrf().disable()
                 .requestMatchers()
                 .antMatchers("/api/**")
-                .antMatchers("/meetingroom/**")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
@@ -40,7 +44,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         // 重点，设置资源id
-        resources.resourceId("authorize-server");
+        resources.resourceId(resourceId);
+
+//        resources.tokenServices(new MyUserInfoTokenServices());
 
         //这里把自定义异常加进去
         resources.authenticationEntryPoint(authExceptionEntryPoint)

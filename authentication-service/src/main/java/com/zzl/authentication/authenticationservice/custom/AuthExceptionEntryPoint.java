@@ -37,7 +37,7 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
         try {
             if (cause instanceof OAuth2AccessDeniedException) {
                 // 资源权限不足
-                response.getWriter().write(mapper.writeValueAsString("获取资源的权限不足"));
+                response.getWriter().write(mapper.writeValueAsString("from auth 获取资源的权限不足"));
             } else if (cause == null || cause instanceof InvalidTokenException) {
                 // 未带token或token无效
                 // cause == null 一般可能是未带token

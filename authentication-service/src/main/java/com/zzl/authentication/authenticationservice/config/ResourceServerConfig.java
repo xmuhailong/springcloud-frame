@@ -11,8 +11,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * 资源服务配置
  * @ EnableResourceServer 启用资源服务
@@ -34,7 +32,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .csrf().disable()
                 .requestMatchers()
                 .antMatchers("/api/**")
-                .antMatchers("/meetingroom/**")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
