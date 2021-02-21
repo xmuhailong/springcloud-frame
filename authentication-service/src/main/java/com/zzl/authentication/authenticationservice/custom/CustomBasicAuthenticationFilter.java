@@ -6,8 +6,6 @@ package com.zzl.authentication.authenticationservice.custom;
  * @date 2021/1/26 8:45 下午
  */
 
-import com.zzl.authentication.authenticationservice.custom.CustomOauthException;
-import io.micrometer.core.instrument.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;

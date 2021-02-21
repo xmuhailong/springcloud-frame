@@ -31,10 +31,10 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
                 .csrf().disable()
                 .requestMatchers()
-                .antMatchers("/api/**")
+                .antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**").authenticated()
+                .antMatchers("/**").permitAll()
                 .and()
                 .httpBasic();
     }

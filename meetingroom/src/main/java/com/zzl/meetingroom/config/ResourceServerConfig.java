@@ -1,5 +1,6 @@
 package com.zzl.meetingroom.config;
 
+import com.zzl.meetingroom.filter.PermitAllSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -27,15 +28,22 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private CustomAccessDeniedHandler customAccessDeniedHandler;
 
+    @Autowired
+    private PermitAllSecurityConfig permitAllSecurityConfig;
+
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .apply(permitAllSecurityConfig)
+                .and()
                 .requestMatchers()
-                .antMatchers("/api/**")
+                .antMatchers("/api/**", "/permitAll/**")
                 .and()
                 .authorizeRequests()
+                // 设置free对应的无需校验
+                .antMatchers("/permitAll/**").permitAll()
+                // 设置api对应的需要校验
                 .antMatchers("/api/**").authenticated()
                 .and()
                 .httpBasic();

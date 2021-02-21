@@ -35,18 +35,18 @@ public class MyTest {
     @GetMapping("hello")
 //    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public String hello() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
-        json = StringEscapeUtils.unescapeJavaScript(json);
-        json = json.replaceFirst("\"", "");
-        json = json.substring(0, json.length() - 1);
-
-        ObjectNode node = objectMapper.readValue(json, ObjectNode.class);
-
-        if (node.has("user")) {
-            System.out.println(node.get("user"));
-        }
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String json = objectMapper.writeValueAsString(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+//
+//        json = StringEscapeUtils.unescapeJavaScript(json);
+//        json = json.replaceFirst("\"", "");
+//        json = json.substring(0, json.length() - 1);
+//
+//        ObjectNode node = objectMapper.readValue(json, ObjectNode.class);
+//
+//        if (node.has("user")) {
+//            System.out.println(node.get("user"));
+//        }
 
         return "hello fuck you all time";
     }
