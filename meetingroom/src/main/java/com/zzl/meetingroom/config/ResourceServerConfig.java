@@ -31,7 +31,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private PermitAllSecurityConfig permitAllSecurityConfig;
 
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -53,8 +52,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         // 重点，设置资源id
         resources.resourceId(resourceId);
-
-//        resources.tokenServices(new MyUserInfoTokenServices());
 
         //这里把自定义异常加进去
         resources.authenticationEntryPoint(authExceptionEntryPoint)

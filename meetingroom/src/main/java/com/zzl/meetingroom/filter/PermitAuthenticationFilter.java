@@ -26,6 +26,8 @@ public class PermitAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         if (request.getRequestURI().startsWith("/permitAll")) {
+
+            // 重写 HttpServletRequestWrapper
             request = new HttpServletRequestWrapper(request) {
                 private Set<String> headerNameSet;
 
@@ -63,8 +65,7 @@ public class PermitAuthenticationFilter extends OncePerRequestFilter {
             };
 
         }
+
         filterChain.doFilter(request, response);
-
     }
-
 }
