@@ -1,5 +1,7 @@
 git rm -r --cached .HELP.md
-/target/
+target/
+### meetingroom/target/*
+.DS_Store
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

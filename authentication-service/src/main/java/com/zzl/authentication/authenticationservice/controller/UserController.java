@@ -47,6 +47,13 @@ public class UserController {
         return member;
     }
 
+    /**
+     * @description 从此方法中转入到具体的获取token链接中
+     * @param [loginModel]
+     * @return com.zzl.authentication.authenticationservice.utils.ResultHelper
+     * @author zhaozhonglong
+     * @date  2023/1/2 11:08:59
+     */
     @ApiOperation(value = "用户名密码获取token,刷新token")
     @PostMapping("/oauth/user/token")
     public ResultHelper getUserTokenInfo(@RequestBody LoginModel loginModel) throws Exception {
