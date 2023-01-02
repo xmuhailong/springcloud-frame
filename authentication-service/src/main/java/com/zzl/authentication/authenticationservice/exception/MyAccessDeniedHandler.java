@@ -1,7 +1,6 @@
 package com.zzl.authentication.authenticationservice.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zzl.authentication.authenticationservice.utils.ResultHelper;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 

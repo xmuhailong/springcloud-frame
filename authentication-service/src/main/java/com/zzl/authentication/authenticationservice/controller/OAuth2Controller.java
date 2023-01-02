@@ -1,24 +1,14 @@
 package com.zzl.authentication.authenticationservice.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zzl.authentication.authenticationservice.constant.CredentialType;
 import com.zzl.authentication.authenticationservice.service.IAuthService;
-import com.zzl.authentication.authenticationservice.utils.LoginModel;
-import com.zzl.authentication.authenticationservice.utils.ResultHelper;
+import com.zzl.core.base.domain.ResultHelper;
+import com.zzl.db.user.vo.LoginModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.security.Principal;
 
 /**
@@ -27,7 +17,7 @@ import java.security.Principal;
  * @date 2021/1/28 1:52 下午
  */
 @RestController
-public class UserController {
+public class OAuth2Controller {
 
     @Autowired
     private ConsumerTokenServices consumerTokenServices;

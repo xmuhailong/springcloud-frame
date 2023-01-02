@@ -1,6 +1,6 @@
-package com.zzl.authentication.authenticationservice.utils;
+package com.zzl.core.base.domain;
 
-import com.zzl.authentication.authenticationservice.constant.CodeEnum;
+import com.zzl.core.base.enums.ResultEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -26,15 +26,15 @@ public class ResultHelper<T> implements Serializable {
     private String respMsg;
 
     public static <T> ResultHelper<T> succeed2Msg(String msg) {
-        return succeedWith(null, CodeEnum.SUCCESS.getCode(), msg);
+        return succeedWith(null, ResultEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> ResultHelper<T> succeed(T model, String msg) {
-        return succeedWith(model, CodeEnum.SUCCESS.getCode(), msg);
+        return succeedWith(model, ResultEnum.SUCCESS.getCode(), msg);
     }
 
     public static <T> ResultHelper<T> succeed(T model) {
-        return succeedWith(model, CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMsg());
+        return succeedWith(model, ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMsg());
     }
 
     public static <T> ResultHelper<T> succeedWith(T datas, String code, String msg) {
@@ -42,11 +42,11 @@ public class ResultHelper<T> implements Serializable {
     }
 
     public static <T> ResultHelper<T> failed2Msg(String msg) {
-        return failedWith(null, CodeEnum.ERROR.getCode(), msg);
+        return failedWith(null, ResultEnum.UNKNOW_ERROR.getCode(), msg);
     }
 
     public static <T> ResultHelper<T> failed(T model, String msg) {
-        return failedWith(model, CodeEnum.ERROR.getCode(), msg);
+        return failedWith(model, ResultEnum.UNKNOW_ERROR.getCode(), msg);
     }
 
 

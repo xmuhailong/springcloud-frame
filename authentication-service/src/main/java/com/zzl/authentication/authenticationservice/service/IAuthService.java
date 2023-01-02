@@ -1,7 +1,7 @@
 package com.zzl.authentication.authenticationservice.service;
 
-import com.zzl.authentication.authenticationservice.utils.LoginModel;
-import com.zzl.authentication.authenticationservice.utils.ResultHelper;
+import com.zzl.core.base.domain.ResultHelper;
+import com.zzl.db.user.vo.LoginModel;
 
 /**
  * @author zhaozhonglong

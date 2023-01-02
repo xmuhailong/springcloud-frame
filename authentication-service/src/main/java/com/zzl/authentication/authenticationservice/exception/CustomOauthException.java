@@ -1,6 +1,7 @@
-package com.zzl.authentication.authenticationservice.custom;
+package com.zzl.authentication.authenticationservice.exception;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.zzl.authentication.authenticationservice.custom.CustomOauthExceptionSerializer;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
