@@ -1,10 +1,12 @@
 package com.zzl.authentication.authenticationservice.config;
 
+import com.zzl.authentication.authenticationservice.constant.PermitAllUrl;
 import com.zzl.authentication.authenticationservice.security.MyAuthenticationProvider;
 import com.zzl.authentication.authenticationservice.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -105,12 +107,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.requestMatchers().antMatchers("/oauth/**")
-                .and()
-                .authorizeRequests()
-                .antMatchers("/oauth/**").authenticated()
-                .and()
-                .csrf().disable();
+//        http.requestMatchers().antMatchers("/oauth/**")
+////                .and()
+////                .authorizeRequests()
+////                .antMatchers("/oauth/**").authenticated()
+////                .and()
+////                .csrf().disable();
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(PermitAllUrl.permitAllUrl("/swaggerList","/oauth/token","/oauth/user/token","/users-anon/**",
+                        "/smsVerify","/thirdPartyLogin/**")).permitAll() // 放开权限的url
+                .anyRequest().authenticated().and()
+                .httpBasic().and().csrf().disable()
+                .headers().frameOptions().disable().and()
+                .headers().xssProtection().disable();
     }
 
 

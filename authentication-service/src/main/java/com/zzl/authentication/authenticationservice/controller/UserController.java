@@ -1,13 +1,24 @@
 package com.zzl.authentication.authenticationservice.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zzl.authentication.authenticationservice.constant.CredentialType;
+import com.zzl.authentication.authenticationservice.service.IAuthService;
+import com.zzl.authentication.authenticationservice.utils.LoginModel;
+import com.zzl.authentication.authenticationservice.utils.ResultHelper;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.security.Principal;
 
 /**
@@ -16,11 +27,13 @@ import java.security.Principal;
  * @date 2021/1/28 1:52 下午
  */
 @RestController
-@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private ConsumerTokenServices consumerTokenServices;
+
+    @Autowired
+    private IAuthService iAuthService;
 
     @GetMapping("query")
     @PreAuthorize("hasAnyAuthority('query')")
@@ -45,6 +58,16 @@ public class UserController {
     public Principal user(Principal member) {
         return member;
     }
+
+    @ApiOperation(value = "用户名密码获取token,刷新token")
+    @PostMapping("/oauth/user/token")
+    public ResultHelper getUserTokenInfo(@RequestBody LoginModel loginModel) throws Exception {
+
+        return iAuthService.getTokenResult(loginModel);
+
+    }
+
+
 
     @DeleteMapping(value = "/exit")
     public boolean revokeToken(String access_token) {
