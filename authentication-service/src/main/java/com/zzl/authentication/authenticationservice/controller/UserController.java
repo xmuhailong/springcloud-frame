@@ -41,19 +41,7 @@ public class UserController {
         return "query";
     }
 
-    /**
-     *
-     * @方法名:user
-     * @方法描述:用于进行权限校验查询
-     * @param member
-     * @return
-     * @修改描述:
-     * @版本:1.0
-     * @创建人:cc
-     * @创建时间:2019年11月19日 下午4:07:52
-     * @修改人:cc
-     * @修改时间:2019年11月19日 下午4:07:52
-     */
+
     @GetMapping("/user")
     public Principal user(Principal member) {
         return member;
