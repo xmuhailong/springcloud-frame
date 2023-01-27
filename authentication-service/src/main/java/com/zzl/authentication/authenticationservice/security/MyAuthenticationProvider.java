@@ -3,6 +3,7 @@ package com.zzl.authentication.authenticationservice.security;
 import java.util.Collection;
 
 
+import com.zzl.db.user.vo.LoginAppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -51,20 +52,24 @@ public class MyAuthenticationProvider extends DaoAuthenticationProvider  {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
 
-        MyUserDetails userDetails = (MyUserDetails)
+        LoginAppUser loginAppUser = (LoginAppUser)
                 this.getUserDetailsService().loadUserByUsername(username);
 
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (!passwordEncoder.matches(password, loginAppUser.getPassword())) {
             throw new InvalidGrantException("from auth myUserDetailsService - match 密码用户名或密码验证失败");
         }
 
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = loginAppUser.getAuthorities();
         // 设置为已验证(已找到原因，阅读UsernamePasswordAuthenticationToken源码，两个构造器的区别)
         // authentication.setAuthenticated(true);
         // error :java.lang.IllegalArgumentException: Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead
         // 传入userDetails及usermodel authenticationToken会被传到RS的返回参数中
         // username
-        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(JSON.toJSONString(userDetails,SerializerFeature.WriteMapNullValue), password, authorities);
+        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(
+                JSON.toJSONString(loginAppUser,SerializerFeature.WriteMapNullValue),
+                password,
+                authorities);
+
         return authenticationToken;
 
     }

@@ -1,14 +1,16 @@
 package com.zzl.authentication.authenticationservice.security;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.zzl.db.user.entity.User;
-import com.zzl.db.user.service.IUserService;
+import com.zzl.authentication.authenticationservice.constant.CredentialType;
+import com.zzl.db.user.service.IAppUserService;
+import com.zzl.db.user.vo.LoginAppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @description 需要改变认证的用户信息来源，我们可以实现 UserDetailsService
@@ -18,22 +20,36 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 @Configuration
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    private IUserService iUserService;
+    private IAppUserService userClient;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = iUserService.getOne(Wrappers.<User>lambdaQuery()
-                        .eq(User::getUsername, username),
-                false);
+        // 为了支持多类型登录，这里username后面拼装上登录类型,如username|type
+        String[] params = username.split("\\|");
+        username = params[0];// 真正的用户名或手机号
 
-        if (null == user) {
-            throw new InvalidGrantException("from auth myUserDetailsService用户名或密码验证失败");
+        LoginAppUser loginAppUser = null;
+        if (params.length == 1 || (CredentialType.USERNAME == CredentialType.valueOf(params[1]))) {
+            loginAppUser = userClient.findByUsername(username);
+            if (loginAppUser == null) {
+                throw new AuthenticationCredentialsNotFoundException("用户不存在");
+            } else if (!loginAppUser.isEnabled()) {
+                throw new DisabledException("用户已作废");
+            }
+        } else {
+            // 登录类型
+            CredentialType credentialType = CredentialType.valueOf(params[1]);
+            if (CredentialType.PHONE == credentialType) {// 短信登录
+                loginAppUser = userClient.findByPhone(username);
+                loginAppUser.setPassword(passwordEncoder.encode(username));
+            } else if (CredentialType.THIRD == credentialType) {// 第三方登陆
+                loginAppUser = userClient.findByUsername(username);
+                loginAppUser.setPassword(passwordEncoder.encode(username));
+            }
         }
 
-        MyUserDetails userDetails = new MyUserDetails();
-        userDetails.setUserName(username);
-        userDetails.setPassword(user.getPassword());
-        userDetails.setUser(user);
-        return userDetails;
+        return loginAppUser;
     }
 }

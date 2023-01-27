@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 @TableName("app_user")
@@ -50,14 +51,17 @@ public class AppUser extends Model<AppUser> implements Serializable {
 	 */
 	@ApiModelProperty(value = "状态（1有效,0无效）")
 	private Boolean enabled;
+
 	@ApiModelProperty(value = "类型（哪个业务的用户）")
 	private String type;
+
 	@ApiModelProperty(hidden=true)
 	@TableField("create_time")
-	private Long createTime;
+	private Date createTime;
+
 	@ApiModelProperty(hidden=true)
 	@TableField("update_time")
-	private Long updateTime;
+	private Date updateTime;
 
 	@ApiModelProperty(value = "角色")
 	@TableField(exist = false)

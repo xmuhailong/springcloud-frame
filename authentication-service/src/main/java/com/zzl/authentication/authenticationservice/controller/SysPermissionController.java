@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -55,7 +56,7 @@ public class SysPermissionController {
 		if (StringUtils.isBlank(sysPermission.getName())) {
 			throw new IllegalArgumentException("权限名不能为空");
 		}
-		sysPermission.setUpdateTime(System.currentTimeMillis());
+		sysPermission.setUpdateTime(new Date());
 		log.info("修改权限标识：{}", sysPermission);
 		sysPermissionService.updateById(sysPermission);
 		return  ResultHelper.succeed(sysPermission);

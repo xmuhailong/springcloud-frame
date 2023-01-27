@@ -46,7 +46,7 @@ public class OAuth2Controller {
      */
     @ApiOperation(value = "用户名密码获取token,刷新token")
     @PostMapping("/oauth/user/token")
-    public ResultHelper getUserTokenInfo(@RequestBody LoginModel loginModel) throws Exception {
+    public ResultHelper getUserTokenInfo(@RequestBody LoginModel loginModel) {
 
         return iAuthService.getTokenResult(loginModel);
 

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 权限标识
@@ -24,8 +25,8 @@ public class SysPermission implements Serializable {
 	private String permission;
 	private String name;
 	@TableField("create_time")
-	private Long createTime;
+	private Date createTime;
 	@TableField("update_time")
-	private Long updateTime;
+	private Date updateTime;
 
 }

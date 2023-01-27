@@ -1,7 +1,10 @@
 package com.zzl.authentication.authenticationservice.security;
 
 
+import com.zzl.db.user.entity.AppUser;
 import com.zzl.db.user.entity.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +16,8 @@ import java.util.Collection;
  * @description
  * @date 2019/5/12 下午1:16
  */
-
+@Setter
+@Getter
 public class MyUserDetails implements UserDetails {
 
     private static final long seriaVersionUID=1L;
@@ -22,34 +26,16 @@ public class MyUserDetails implements UserDetails {
 
     private String password;
 
-    private User user;
+    private AppUser appUser;
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     /**
      * 重写getAuthorities方法，将用户的角色作为权限
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //TODO 后续带完善
+        //TODO 后续待完善
         return AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_SUPER");
     }
 

@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @date  2021/1/16 21:41:36
      */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
@@ -78,7 +78,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * @description 配置校验的具体类
-     *
+     *      * 定义用户以及相应的角色和权限。
+     *      * 对于复杂的权限管理系统，用户和角色关联，角色和权限关联，权限和资源关联；对于简单的权限管理系统，
+     *      * 用户和权限关联，权限和资源关联。无论是哪种，用户都不会和角色以及权限同时直接关联。反应到代码上
+     *      * 就是roles方法和authorities方法不能同时调用，如果同时调用，后者会覆盖前者(可以自行查看源码，
+     *      * 最终都会调用authorities(Collection<? extends GrantedAuthority> authorities)方法)。
+     *      * 需要注意的是，spring security会自动给用户的角色加上ROLE_前缀。
      * @param [auth]
      * @return void
      * @author zhaozhonglong
@@ -88,7 +93,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(myAuthenticationProvider) // authenticate方法，控制校验用户以及其他权限的判断
             .userDetailsService(myUserDetailsService) // loadUserByUsername此方法用于根据用户名获取用户信息
-            .passwordEncoder(passwordEncoder()); // 设置校验方式
+            .passwordEncoder(bCryptPasswordEncoder()); // 设置校验方式
     }
 
     /**
@@ -122,9 +127,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/users-anon/**",
                         "/smsVerify",
                         "/thirdPartyLogin/**")).permitAll() // 放开权限的url
-                .anyRequest().authenticated().and()
+                .anyRequest().authenticated()
+                .and()
                 .httpBasic().and().csrf().disable()
-                .headers().frameOptions().disable().and()
+                .headers().frameOptions().disable()
+                .and()
                 .headers().xssProtection().disable();
     }
 

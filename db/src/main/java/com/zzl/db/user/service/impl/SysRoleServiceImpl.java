@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 			if(StringUtils.isEmpty(sysRole.getName())) {
 				throw new IllegalArgumentException("角色名不能为空");
 			}
-			sysRole.setUpdateTime(System.currentTimeMillis());
+			sysRole.setUpdateTime(new Date());
 			this.updateById(sysRole);
 		}else {
 			SysRole role = sysRoleMapper.selectOne(new QueryWrapper<SysRole>().eq("code", sysRole.getCode()));
@@ -56,7 +57,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 			if (!StringUtils.isEmpty(sysRoleMapper.selectOne(new QueryWrapper<SysRole>().eq("name", sysRole.getName())))) {
 				throw new IllegalArgumentException("角色name已存在");
 			}
-			sysRole.setCreateTime(System.currentTimeMillis());
+			sysRole.setCreateTime(new Date());
 			sysRole.setUpdateTime(sysRole.getCreateTime());
 			sysRoleMapper.insert(sysRole);
 		}

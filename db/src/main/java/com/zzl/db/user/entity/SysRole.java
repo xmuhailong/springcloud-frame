@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 角色
@@ -32,10 +33,10 @@ public class SysRole implements Serializable {
 
 	@ApiModelProperty(hidden=true)
 	@TableField("create_time")
-	private Long createTime;
+	private Date createTime;
 
 	@ApiModelProperty(hidden=true)
 	@TableField("update_time")
-	private Long updateTime;
+	private Date updateTime;
 
 }

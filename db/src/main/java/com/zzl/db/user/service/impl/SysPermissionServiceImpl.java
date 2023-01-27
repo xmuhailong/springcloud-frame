@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -38,7 +39,7 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		if (permission != null) {
 			throw new IllegalArgumentException("权限标识已存在");
 		}
-		sysPermission.setCreateTime(System.currentTimeMillis());
+		sysPermission.setCreateTime(new Date());
 		sysPermission.setUpdateTime(sysPermission.getCreateTime());
 
 		sysPermissionMapper.insert(sysPermission);

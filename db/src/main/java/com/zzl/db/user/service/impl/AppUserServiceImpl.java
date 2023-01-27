@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -44,7 +45,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private ISysPermissionService ISysPermissionService;
+    private ISysPermissionService sysPermissionService;
     @Autowired
     private UserRoleMapper userRoleMapper;
     @Autowired
@@ -93,7 +94,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
         }
 
         appUser.setEnabled(appUser.getEnabled());
-        appUser.setCreateTime(System.currentTimeMillis());
+        appUser.setCreateTime(new Date());
         appUser.setUpdateTime(appUser.getCreateTime());
         appUser.setOrganizationId(1);//随便默认值
 
@@ -142,7 +143,7 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
     @Transactional
     @Override
     public AppUser updateAppUser(AppUser appUser) {
-        appUser.setUpdateTime(System.currentTimeMillis());
+        appUser.setUpdateTime(new Date());
         appUserMapper.updateById(appUser);
         log.info("修改用户：{}", appUser);
         return appUser;
