@@ -11,8 +11,7 @@ public enum ResultEnum implements BaseEnum{
     UNKNOW_ERROR("9999", "未知异常"),
 
     NOT_NULL("0001", "[%s]不能为空"),
-    NOT_EXIST("0001", "[%s]不存在"),
-
+    NOT_EXIST("0002", "[%s]不存在"),
 
 
     // 1000错误为系统错误
@@ -40,11 +39,11 @@ public enum ResultEnum implements BaseEnum{
 
     @Override
     public String code() {
-        return null;
+        return this.code;
     }
 
     @Override
     public String msg() {
-        return null;
+        return this.msg;
     }
 }

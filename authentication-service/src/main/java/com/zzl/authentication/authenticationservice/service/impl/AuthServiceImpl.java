@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.zzl.authentication.authenticationservice.constant.CredentialType;
 import com.zzl.authentication.authenticationservice.service.IAuthService;
 import com.zzl.core.base.domain.ResultHelper;
+import com.zzl.core.base.enums.ResultEnum;
 import com.zzl.db.user.vo.LoginModel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import java.net.URI;
  * @version 1.0.0
  * @date 2023/1/2 10:33 上午
  */
+@Slf4j
 @Component
 public class AuthServiceImpl implements IAuthService {
 
@@ -62,11 +65,11 @@ public class AuthServiceImpl implements IAuthService {
                 return ResultHelper.succeed(JSONObject.parse(exchange.getBody()));
             }
         } catch (HttpClientErrorException e) {
-            e.printStackTrace();
-            return ResultHelper.failed2Msg("用户名或密码错误");
+            log.error("调用授权中心失败：HttpClientErrorException", e);
+            return ResultHelper.failed2Msg(ResultEnum.USERNAME_OR_PASSWORD_ERROR);
         } catch (RestClientException e) {
-            e.printStackTrace();
-            return ResultHelper.failed2Msg("用户名密码错误");
+            log.error("调用授权中心失败：RestClientException", e);
+            return ResultHelper.failed2Msg(ResultEnum.USERNAME_OR_PASSWORD_ERROR);
         }
         return ResultHelper.succeed(null);
     }

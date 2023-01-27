@@ -3,7 +3,9 @@ package com.zzl.authentication.authenticationservice.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.zzl.core.base.utils.HttpUtil;
 import com.zzl.db.user.vo.ThirdPartyUser;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.NameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import java.util.Map;
  * @author liugh
  * @version 2018年7月25日 下午3:44:45
  */
+@Slf4j
 public final class ThirdPartyLoginHelper {
 
     private static Logger logger = LoggerFactory.getLogger(ThirdPartyLoginHelper.class);
@@ -242,6 +245,9 @@ public final class ThirdPartyLoginHelper {
                     + ThirdResources.THIRDPARTY.getString("scope_" + type) + "&redirect_uri=http://" + host
                     + ThirdResources.THIRDPARTY.getString("redirect_url_" + type);
         }
+
+        log.info("请求的host是：{}, 请求的type是：{}, 请求的URL是：{}", host, type , url);
+
         return url;
     }
 }

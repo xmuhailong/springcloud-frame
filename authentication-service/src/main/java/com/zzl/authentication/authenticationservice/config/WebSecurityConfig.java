@@ -113,9 +113,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .antMatchers("/oauth/**").authenticated()
 ////                .and()
 ////                .csrf().disable();
-        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(PermitAllUrl.permitAllUrl("/swaggerList","/oauth/token","/oauth/user/token","/users-anon/**",
-                        "/smsVerify","/thirdPartyLogin/**")).permitAll() // 放开权限的url
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(PermitAllUrl.permitAllUrl(
+                        "/swaggerList",
+                        "/oauth/token",
+                        "/oauth/user/token",
+                        "/users-anon/**",
+                        "/smsVerify",
+                        "/thirdPartyLogin/**")).permitAll() // 放开权限的url
                 .anyRequest().authenticated().and()
                 .httpBasic().and().csrf().disable()
                 .headers().frameOptions().disable().and()

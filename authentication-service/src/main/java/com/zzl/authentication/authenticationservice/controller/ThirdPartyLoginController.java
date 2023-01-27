@@ -2,12 +2,13 @@ package com.zzl.authentication.authenticationservice.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzl.authentication.authenticationservice.config.ThirdPartyLoginHelper;
 import com.zzl.authentication.authenticationservice.config.ThirdResources;
 import com.zzl.authentication.authenticationservice.constant.CodeEnum;
 import com.zzl.core.base.constants.Constant;
 import com.zzl.core.base.domain.ResultHelper;
+import com.zzl.core.base.enums.ResultEnum;
+import com.zzl.core.base.exception.AppException;
 import com.zzl.core.base.utils.HttpUtil;
 import com.zzl.db.user.service.AppUserService;
 import com.zzl.db.user.vo.LoginModel;
@@ -15,6 +16,7 @@ import com.zzl.db.user.vo.ThirdPartyUser;
 import com.zzl.db.user.entity.AppUser;
 import com.zzl.db.user.entity.UserThirdparty;
 import com.zzl.db.user.service.IUserThirdpartyService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,12 +28,14 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.Map;
 
 /**
  * Created by liugh on 2018/7/24.
  */
+@Slf4j
 @Controller
 @ApiIgnore
 @RequestMapping("/thirdPartyLogin")
@@ -56,15 +60,17 @@ public class ThirdPartyLoginController {
                            @RequestParam("type") String type, @RequestParam("returnUrl") String returnUrl) {
         //拼接第三方登录授权地址
         String url = ThirdPartyLoginHelper.getRedirectUrl(request.getHeader("host"), type);
-        System.out.println(url);
+
         //存储登录前的位置
         String ip = HttpUtil.getIp(request);
         Constant.RETURN_URL.put(ip, returnUrl.replaceAll("＃", "#"));
 
         try {
             response.sendRedirect(url);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error("调用第三方出错：", e);
+
+            throw new AppException(ResultEnum.UNKNOW_ERROR);
         }
     }
 

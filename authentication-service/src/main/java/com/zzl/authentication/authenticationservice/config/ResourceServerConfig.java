@@ -50,7 +50,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .accessDeniedHandler(new MyAccessDeniedHandler())
                 .and().requestMatcher(new OAuth2RequestedMatcher()).authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(PermitAllUrl.permitAllUrl("/swaggerList","/oauth/token","/oauth/user/token","/users-anon/**")).permitAll() // 放开权限的url
+                .antMatchers(PermitAllUrl.permitAllUrl(
+                        "/swaggerList",
+                        "/oauth/token",
+                        "/oauth/user/token",
+                        "/users-anon/**",
+                        "/smsVerify",
+                        "/thirdPartyLogin/**")).permitAll() // 放开权限的url
                 .anyRequest().authenticated().and().httpBasic();
     }
 

@@ -1,8 +1,8 @@
 package com.zzl.core.base.utils;
 
 
-import com.zzl.base.domain.Result;
-import com.zzl.base.enums.ResultEnum;
+import com.zzl.core.base.domain.Result;
+import com.zzl.core.base.enums.ResultEnum;
 
 /**
  * @author zhaozhonglong
@@ -13,8 +13,8 @@ public class ResultUtil {
     public static Result success(Object object) {
         Result result = new Result();
 
-        result.setCode(ResultEnum.SUCCESS.getCode());
-        result.setMsg(ResultEnum.SUCCESS.getMsg());
+        result.setCode(ResultEnum.SUCCESS.code());
+        result.setMsg(ResultEnum.SUCCESS.msg());
         result.setData(object);
 
         return result;
@@ -23,8 +23,8 @@ public class ResultUtil {
     public static Result success() {
         Result result = new Result();
 
-        result.setCode(ResultEnum.SUCCESS.getCode());
-        result.setMsg(ResultEnum.SUCCESS.getMsg());
+        result.setCode(ResultEnum.SUCCESS.code());
+        result.setMsg(ResultEnum.SUCCESS.msg());
         result.setData(null);
 
         return result;
@@ -42,8 +42,8 @@ public class ResultUtil {
     public static Result error(ResultEnum resultEnum) {
         Result result = new Result();
 
-        result.setCode(resultEnum.getCode());
-        result.setMsg(resultEnum.getMsg());
+        result.setCode(resultEnum.code());
+        result.setMsg(resultEnum.msg());
 
         return result;
     }
