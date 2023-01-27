@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Sets;
-import com.zzl.db.constants.RoleType;
+import com.zzl.db.user.constants.RoleType;
 import com.zzl.db.user.entity.SysPermission;
 import com.zzl.db.user.entity.SysRole;
 import com.zzl.db.user.mapper.RolePermissionMapper;
 import com.zzl.db.user.mapper.SysRoleMapper;
 import com.zzl.db.user.mapper.UserRoleMapper;
-import com.zzl.db.user.service.SysRoleService;
+import com.zzl.db.user.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
 
 	@Autowired
 	private SysRoleMapper sysRoleMapper;

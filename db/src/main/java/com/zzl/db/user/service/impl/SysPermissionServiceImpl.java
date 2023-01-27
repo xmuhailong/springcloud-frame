@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zzl.db.user.entity.SysPermission;
 import com.zzl.db.user.mapper.RolePermissionMapper;
 import com.zzl.db.user.mapper.SysPermissionMapper;
-import com.zzl.db.user.service.SysPermissionService;
+import com.zzl.db.user.service.ISysPermissionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
-public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements SysPermissionService {
+public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, SysPermission> implements ISysPermissionService {
 
 	@Autowired
 	private SysPermissionMapper sysPermissionMapper;

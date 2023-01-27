@@ -8,7 +8,7 @@ import com.zzl.db.user.entity.SysRole;
 
 import java.util.Set;
 
-public interface SysRoleService extends IService<SysRole> {
+public interface ISysRoleService extends IService<SysRole> {
 
 	void saveSysRole(SysRole sysRole);
 

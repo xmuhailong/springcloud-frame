@@ -8,7 +8,7 @@ import com.zzl.db.user.entity.SysPermission;
 import java.util.Map;
 import java.util.Set;
 
-public interface SysPermissionService extends IService<SysPermission> {
+public interface ISysPermissionService extends IService<SysPermission> {
 
 	/**
 	 * 根绝角色ids获取权限集合

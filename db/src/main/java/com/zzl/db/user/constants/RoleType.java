@@ -1,4 +1,4 @@
-package com.zzl.db.constants;
+package com.zzl.db.user.constants;
 
 /**
  * Created by Administrator on 2019/6/13.

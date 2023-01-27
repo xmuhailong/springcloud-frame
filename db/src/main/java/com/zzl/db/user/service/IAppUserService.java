@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public interface AppUserService extends IService<AppUser> {
+public interface IAppUserService extends IService<AppUser> {
 
 	AppUser addAppUser(AppUser appUser)throws Exception;
 

@@ -2,11 +2,11 @@ package com.zzl.db.user.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zzl.core.base.constants.Constant;
-import com.zzl.db.constants.RoleType;
+import com.zzl.db.user.constants.RoleType;
 import com.zzl.db.user.entity.AppUser;
 import com.zzl.db.user.entity.UserThirdparty;
 import com.zzl.db.user.mapper.UserThirdpartyMapper;
-import com.zzl.db.user.service.AppUserService;
+import com.zzl.db.user.service.IAppUserService;
 import com.zzl.db.user.service.IUserThirdpartyService;
 import com.zzl.db.user.vo.ThirdPartyUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class UserThirdpartyServiceImpl extends ServiceImpl<UserThirdpartyMapper, UserThirdparty> implements IUserThirdpartyService {
 
     @Autowired
-    private AppUserService appUserService;
+    private IAppUserService IAppUserService;
 
     @Override
     public AppUser insertThirdPartyUser(ThirdPartyUser param) throws Exception {
@@ -34,7 +34,7 @@ public class UserThirdpartyServiceImpl extends ServiceImpl<UserThirdpartyMapper,
         appUser.setUsername("gfc" + param.getOpenid());
         appUser.setRole(RoleType.USER.name());
         appUser.setType("4");
-        appUser = appUserService.addAppUser(appUser);
+        appUser = IAppUserService.addAppUser(appUser);
 
         // 初始化第三方信息
         UserThirdparty thirdparty = new UserThirdparty();

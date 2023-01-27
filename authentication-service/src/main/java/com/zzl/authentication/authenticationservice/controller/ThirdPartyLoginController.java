@@ -10,7 +10,7 @@ import com.zzl.core.base.domain.ResultHelper;
 import com.zzl.core.base.enums.ResultEnum;
 import com.zzl.core.base.exception.AppException;
 import com.zzl.core.base.utils.HttpUtil;
-import com.zzl.db.user.service.AppUserService;
+import com.zzl.db.user.service.IAppUserService;
 import com.zzl.db.user.vo.LoginModel;
 import com.zzl.db.user.vo.ThirdPartyUser;
 import com.zzl.db.user.entity.AppUser;
@@ -28,8 +28,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Result;
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -44,7 +42,7 @@ public class ThirdPartyLoginController {
     @Autowired
     private IUserThirdpartyService userThirdpartyService;
     @Autowired
-    private AppUserService appUserService;
+    private IAppUserService IAppUserService;
     @Autowired
     private OAuth2Controller oAuth2Controller;
 
@@ -199,7 +197,7 @@ public class ThirdPartyLoginController {
         if (StringUtils.isEmpty(userThirdparty)) {
             sysUser = userThirdpartyService.insertThirdPartyUser(param);
         } else {
-            sysUser = appUserService.getById(userThirdparty.getUserNo());
+            sysUser = IAppUserService.getById(userThirdparty.getUserNo());
         }
 
         LoginModel loginModel = new LoginModel();

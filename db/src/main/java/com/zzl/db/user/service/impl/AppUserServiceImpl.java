@@ -9,16 +9,16 @@ import com.zzl.core.base.enums.UserEnum;
 import com.zzl.core.base.exception.AppException;
 import com.zzl.core.base.utils.IdGenerate;
 import com.zzl.core.base.utils.PhoneUtil;
-import com.zzl.db.constants.RoleType;
+import com.zzl.db.user.constants.RoleType;
 import com.zzl.db.user.entity.AppUser;
 import com.zzl.db.user.entity.SysPermission;
 import com.zzl.db.user.entity.SysRole;
 import com.zzl.db.user.mapper.AppUserMapper;
 import com.zzl.db.user.mapper.UserCredentialsMapper;
 import com.zzl.db.user.mapper.UserRoleMapper;
-import com.zzl.db.user.service.AppUserService;
-import com.zzl.db.user.service.SysPermissionService;
-import com.zzl.db.user.service.SysRoleService;
+import com.zzl.db.user.service.IAppUserService;
+import com.zzl.db.user.service.ISysPermissionService;
+import com.zzl.db.user.service.ISysRoleService;
 import com.zzl.db.user.vo.LoginAppUser;
 import com.zzl.db.user.vo.UserCredential;
 import lombok.extern.slf4j.Slf4j;
@@ -37,21 +37,21 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> implements AppUserService {
+public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> implements IAppUserService {
 
     @Autowired
     private AppUserMapper appUserMapper;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private SysPermissionService sysPermissionService;
+    private ISysPermissionService ISysPermissionService;
     @Autowired
     private UserRoleMapper userRoleMapper;
     @Autowired
     private UserCredentialsMapper userCredentialsDao;
 
     @Autowired
-    private SysRoleService sysRoleService;
+    private ISysRoleService sysRoleService;
 
     @Transactional
     @Override
