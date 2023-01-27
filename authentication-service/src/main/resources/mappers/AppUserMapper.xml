@@ -42,7 +42,7 @@
 		</where>
 	</select>
 
-	<select id="findUserByUsername"  resultMap="BaseResultMap">
+	<select id="findUserByUsername"  resultType="com.zzl.db.user.entity.AppUser">
 		select u.* from app_user u inner join user_credentials c on c.userId = u.id
 		<where>
 			<if test="username != null and username != ''">

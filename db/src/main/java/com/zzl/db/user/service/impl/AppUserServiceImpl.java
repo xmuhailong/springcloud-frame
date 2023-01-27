@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -153,6 +154,10 @@ public class AppUserServiceImpl extends ServiceImpl<AppUserMapper, AppUser> impl
     @Override
     public LoginAppUser findByUsername(String username) {
         AppUser appUser = appUserMapper.findUserByUsername(username);
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+        String aaa = sdf.format(appUser.getCreateTime());
+
         return setUserRoles(appUser);
     }
 
