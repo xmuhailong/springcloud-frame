@@ -6,10 +6,12 @@ import com.zzl.core.base.log.LogAnnotation;
 import com.zzl.core.base.log.constants.LogModule;
 import com.zzl.db.user.entity.SysPermission;
 import com.zzl.db.user.service.ISysPermissionService;
+import com.zzl.db.user.vo.LoginAppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -52,7 +54,7 @@ public class SysPermissionController {
 	@LogAnnotation(module = LogModule.UPDATE_PERMISSION)
 	@PreAuthorize("hasAuthority('back:permission:update')")
 	@PutMapping("/permissions")
-	public ResultHelper update(@RequestBody SysPermission sysPermission) {
+	public ResultHelper update(@AuthenticationPrincipal LoginAppUser loginAppUser, @RequestBody SysPermission sysPermission) {
 		if (StringUtils.isBlank(sysPermission.getName())) {
 			throw new IllegalArgumentException("权限名不能为空");
 		}

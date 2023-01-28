@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
  * 资源服务配置
  * @ EnableResourceServer 启用资源服务
  */
-@Configuration
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)   // 启用注解权限配置
 @Order(3)
@@ -54,9 +53,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/swaggerList",
                         "/oauth/token",
                         "/oauth/user/token",
-                        "/users-anon/**",
-                        "/smsVerify",
-                        "/thirdPartyLogin/**")).permitAll() // 放开权限的url
+                        "/users-anon/**")).permitAll() // 放开权限的url
                 .anyRequest().authenticated().and().httpBasic();
     }
 
