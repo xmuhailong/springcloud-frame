@@ -1,0 +1,4 @@
+zzl:
+  authTokenUrl: http://auth/oauth/token
+server:
+  port: 2661

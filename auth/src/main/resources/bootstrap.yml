@@ -1,3 +1,4 @@
+
 spring:
   cloud:
     config:
@@ -6,10 +7,14 @@ spring:
         # eureka client id
         service-id: config
       # by name
-      name: apigateway, zipkin
+      name: auth-db, zipkin, redis
 
   application:
-    name: apigateway
+    name: auth
+
+mybatis-plus:
+  mapper-locations: classpath:/mappers/*Mapper.xml
+  typeAliasesPackage: com.zzl.db.user
 
 # register first, or cannot find spring-cloud-security
 eureka:

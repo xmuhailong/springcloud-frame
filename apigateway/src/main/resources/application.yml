@@ -35,13 +35,13 @@ zuul:
   ignored-services: '*'
   # prefix: /api
   routes:
-    # authentication-service
+    # auth
     auth:
       path: /auth/**
       #敏感头信息
       sensitiveHeaders:
       # 使用service-id代替url
-      service-id: authentication-service
+      service-id: auth
 
     # meetingroom
     meetingroom:

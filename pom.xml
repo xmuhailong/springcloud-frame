@@ -15,8 +15,8 @@
 
     <modules>
         <module>eureka</module>
-        <module>spring-cloud-config</module>
-        <module>authentication-service</module>
+        <module>config</module>
+        <module>auth</module>
         <module>apigateway</module>
         <module>meetingroom</module>
         <module>db</module>

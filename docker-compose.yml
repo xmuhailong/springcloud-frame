@@ -20,8 +20,8 @@ services:
     environment:
       - spring.profiles.active=server02
 
-  spring-cloud-config:
-    image: zzl/spring-cloud-config
+  config:
+    image: zzl/config
     networks:
       - eureka-net
     ports:
@@ -37,10 +37,10 @@ services:
     ports:
       - "2585:2585"
     depends_on:
-      - spring-cloud-config
+      - config
 
-  authentication-service:
-    image: zzl/authentication-service
+  auth:
+    image: zzl/auth
     networks:
           - eureka-net
     ports:
