@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @EnableEurekaClient
 @SpringBootApplication
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MeetingroomApplication {
     public static void main(String[] args) {
         SpringApplication.run(MeetingroomApplication.class, args);

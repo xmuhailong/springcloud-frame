@@ -1,6 +1,6 @@
 package com.zzl.auth.config;
 
-import com.zzl.auth.constant.PermitAllUrl;
+import com.zzl.core.base.constants.PermitAllUrl;
 import com.zzl.auth.security.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.zzl.meetingroom.config;
+package com.zzl.core.base.exception.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,6 @@ import java.io.IOException;
  * @author zhaozhonglong
  * @date  2021/1/26 12:34:58
  */
-@Component
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
     @Autowired
     private ObjectMapper mapper;
@@ -37,11 +35,11 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
         try {
             if (cause instanceof OAuth2AccessDeniedException) {
                 // 资源权限不足
-                response.getWriter().write(mapper.writeValueAsString("from meetingroom 资源不足"));
+                response.getWriter().write(mapper.writeValueAsString("资源不足"));
             } else if (cause == null || cause instanceof InvalidTokenException) {
                 // 未带token或token无效
                 // cause == null 一般可能是未带token
-                response.getWriter().write(mapper.writeValueAsString("from meetingroom 没带token或token不对"));
+                response.getWriter().write(mapper.writeValueAsString("没带token或token不对"));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

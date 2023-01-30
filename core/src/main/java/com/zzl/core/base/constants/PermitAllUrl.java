@@ -1,4 +1,4 @@
-package com.zzl.auth.constant;
+package com.zzl.core.base.constants;
 
 import java.util.Collections;
 import java.util.HashSet;

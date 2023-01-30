@@ -1,11 +1,10 @@
 package com.zzl.auth.config;
 
-import com.zzl.auth.constant.PermitAllUrl;
+import com.zzl.core.base.constants.PermitAllUrl;
 import com.zzl.auth.custom.AuthExceptionEntryPoint;
 import com.zzl.auth.exception.MyAccessDeniedHandler;
 import com.zzl.auth.custom.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
