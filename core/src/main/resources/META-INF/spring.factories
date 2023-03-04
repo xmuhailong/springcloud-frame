@@ -1,3 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.zzl.core.base.exception.ExceptionHandlerAdvice,\
-com.zzl.core.base.exception.ResponseDataAdvice
+com.zzl.core.base.exception.ResponseDataAdvice,\
+com.zzl.core.base.config.FeignInterceptorConfig,\
+com.zzl.core.base.config.RestTemplateConfig,\
+com.zzl.core.base.config.MybatisPlusConfig

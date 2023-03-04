@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zzl.db.user.mapper.AppUserMapper">
+<mapper namespace="com.zzl.auth.persistence.mapper.AppUserMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.zzl.db.user.entity.AppUser">
+	<resultMap id="BaseResultMap" type="com.zzl.core.base.domain.user.AppUser">
 		<id column="id" property="id" />
 		<result column="username" property="username" />
 		<result column="password" property="password" />
@@ -42,7 +42,7 @@
 		</where>
 	</select>
 
-	<select id="findUserByUsername"  resultType="com.zzl.db.user.entity.AppUser">
+	<select id="findUserByUsername"  resultType="com.zzl.core.base.domain.user.AppUser">
 		select u.* from app_user u inner join user_credentials c on c.userId = u.id
 		<where>
 			<if test="username != null and username != ''">

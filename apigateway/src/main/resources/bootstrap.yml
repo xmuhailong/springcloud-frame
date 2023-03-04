@@ -6,7 +6,7 @@ spring:
         # eureka client id
         service-id: config
       # by name
-      name: apigateway, zipkin
+      name: apigateway, zipkin, redis
 
   application:
     name: apigateway

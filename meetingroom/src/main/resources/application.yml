@@ -6,8 +6,7 @@ server:
 security:
   oauth2:
     resource:
-#      id: meetingroom # 这里设置其实没什么用，设置后也是默认的 oauth2-server
-      user-info-uri: http://localhost:2585/auth/api/user #验证传入的令牌
+      user-info-uri: http://localhost:2585/user-me #验证传入的令牌
 
 spring:
   application:

@@ -1,8 +1,8 @@
 package com.zzl.auth.security;
 
-import com.zzl.auth.constant.CredentialType;
-import com.zzl.db.user.service.IAppUserService;
-import com.zzl.db.user.vo.LoginAppUser;
+import com.zzl.core.base.enums.CredentialTypeEnum;
+import com.zzl.auth.persistence.service.IAppUserService;
+import com.zzl.core.base.domain.user.LoginAppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -31,7 +31,7 @@ public class MyUserDetailsService implements UserDetailsService {
         username = params[0];// 真正的用户名或手机号
 
         LoginAppUser loginAppUser = null;
-        if (params.length == 1 || (CredentialType.USERNAME == CredentialType.valueOf(params[1]))) {
+        if (params.length == 1 || (CredentialTypeEnum.USERNAME == CredentialTypeEnum.valueOf(params[1]))) {
             loginAppUser = userClient.findByUsername(username);
             if (loginAppUser == null) {
                 throw new AuthenticationCredentialsNotFoundException("用户不存在");
@@ -40,11 +40,11 @@ public class MyUserDetailsService implements UserDetailsService {
             }
         } else {
             // 登录类型
-            CredentialType credentialType = CredentialType.valueOf(params[1]);
-            if (CredentialType.PHONE == credentialType) {// 短信登录
+            CredentialTypeEnum credentialType = CredentialTypeEnum.valueOf(params[1]);
+            if (CredentialTypeEnum.PHONE == credentialType) {// 短信登录
                 loginAppUser = userClient.findByPhone(username);
                 loginAppUser.setPassword(passwordEncoder.encode(username));
-            } else if (CredentialType.THIRD == credentialType) {// 第三方登陆
+            } else if (CredentialTypeEnum.THIRD == credentialType) {// 第三方登陆
                 loginAppUser = userClient.findByUsername(username);
                 loginAppUser.setPassword(passwordEncoder.encode(username));
             }

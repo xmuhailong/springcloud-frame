@@ -4,18 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zzl.auth.config.ThirdPartyLoginHelper;
 import com.zzl.auth.config.ThirdResources;
-import com.zzl.auth.constant.CodeEnum;
 import com.zzl.core.base.constants.Constant;
 import com.zzl.core.base.domain.ResultHelper;
 import com.zzl.core.base.enums.ResultEnum;
 import com.zzl.core.base.exception.AppException;
 import com.zzl.core.base.utils.HttpUtil;
-import com.zzl.db.user.service.IAppUserService;
-import com.zzl.db.user.vo.LoginModel;
-import com.zzl.db.user.vo.ThirdPartyUser;
-import com.zzl.db.user.entity.AppUser;
-import com.zzl.db.user.entity.UserThirdparty;
-import com.zzl.db.user.service.IUserThirdpartyService;
+import com.zzl.auth.persistence.service.IAppUserService;
+import com.zzl.core.base.domain.user.LoginModel;
+import com.zzl.core.base.domain.user.ThirdPartyUser;
+import com.zzl.core.base.domain.user.AppUser;
+import com.zzl.core.base.domain.user.UserThirdparty;
+import com.zzl.auth.persistence.service.IUserThirdpartyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * Created by liugh on 2018/7/24.
+ * Created by zhaozhonglong on 2018/7/24.
  */
 @Slf4j
 @Controller
@@ -167,7 +166,7 @@ public class ThirdPartyLoginController {
         ResultHelper resultHelper = thirdPartyLogin(request, thirdUser);
         String ip = HttpUtil.getIp(request);
 
-        if (CodeEnum.SUCCESS.getCode().equals(resultHelper.getRespCode())) {
+        if ("10000".equals(resultHelper.getRespCode())) {
             response.setHeader("Content-type", "text/html;charset=UTF-8");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write("<!DOCTYPE html>\n" +

@@ -2,12 +2,16 @@ package com.zzl.auth.controller;
 
 import com.zzl.auth.service.IAuthService;
 import com.zzl.core.base.domain.ResultHelper;
-import com.zzl.db.user.vo.LoginModel;
+import com.zzl.core.base.domain.user.LoginModel;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.security.Principal;
 
@@ -16,6 +20,7 @@ import java.security.Principal;
  * @version 1.0.0
  * @date 2021/1/28 1:52 下午
  */
+@Slf4j
 @RestController
 public class OAuth2Controller {
 
@@ -31,6 +36,24 @@ public class OAuth2Controller {
         return "query";
     }
 
+    /**
+     * 当前登陆用户信息<br>
+     * <p>
+     * security获取当前登录用户的方法是SecurityContextHolder.getContext().getAuthentication()<br>
+     * 返回值是接口org.springframework.security.core.Authentication，又继承了Principal<br>
+     * 这里的实现类是org.springframework.security.oauth2.provider.OAuth2Authentication<br>
+     * <p>
+     * 因此这只是一种写法，下面注释掉的三个方法也都一样，这四个方法任选其一即可，也只能选一个，毕竟uri相同，否则启动报错<br>
+     *
+     * @return
+     */
+    @GetMapping("/user-me")
+    @ApiIgnore
+    public Authentication principal() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.debug("user-me:{}", authentication.getName());
+        return authentication;
+    }
 
     @GetMapping("/user")
     public Principal user(Principal member) {

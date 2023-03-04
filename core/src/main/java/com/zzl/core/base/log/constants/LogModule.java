@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 日志模块定义
  *
- * @author liugh
+ * @author zhaozhonglong
  */
 public abstract class LogModule {
 

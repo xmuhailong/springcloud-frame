@@ -29,7 +29,7 @@ import java.security.KeyStore;
 import java.util.ArrayList;
 
 /**
- * @author liugh
+ * @author zhaozhonglong
  */
 public final class HttpUtil {
 

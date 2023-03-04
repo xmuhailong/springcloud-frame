@@ -1,7 +1,12 @@
-
 spring:
-  application:
-    name: meetingroom
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        # eureka client id
+        service-id: config
+      # by name
+      name: meetingroom-dev, redis
 
 # register first, or cannot find spring-cloud-security
 eureka:

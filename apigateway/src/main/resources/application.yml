@@ -9,7 +9,7 @@ security:
 #      client-id: client1
 #      client-secret: client1
     resource:
-      user-info-uri: http://localhost:${server.port}/auth/api/user
+      user-info-uri: http://localhost:${server.port}/user-me
       prefer-token-info: false
 
 #  开启所有暴露端点: /routes端点 和 /bus-refresh

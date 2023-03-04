@@ -2,8 +2,8 @@ package com.zzl.auth.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zzl.core.base.domain.ResultHelper;
-import com.zzl.db.user.entity.SysRole;
-import com.zzl.db.user.service.ISysRoleService;
+import com.zzl.core.base.domain.user.SysRole;
+import com.zzl.auth.persistence.service.ISysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;

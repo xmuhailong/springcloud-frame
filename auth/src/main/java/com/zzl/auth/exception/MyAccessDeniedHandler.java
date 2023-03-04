@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by liugh on 2019/6/6.
+ * Created by zhaozhonglong on 2019/6/6.
  */
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override

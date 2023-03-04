@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author liugh 66864662@qq.com
+ * @author zhaozhonglong 66864662@qq.com
  */
 @Data
 @NoArgsConstructor

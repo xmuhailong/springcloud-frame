@@ -6,8 +6,8 @@ import com.zzl.core.sms.domain.SmsSendResponse;
 import com.zzl.core.sms.utils.GenerationSequenceUtil;
 import com.zzl.core.base.utils.PhoneUtil;
 import com.zzl.core.sms.utils.SmsSendUtil;
-import com.zzl.db.user.entity.SmsVerify;
-import com.zzl.db.user.service.ISmsVerifyService;
+import com.zzl.core.base.domain.user.SmsVerify;
+import com.zzl.auth.persistence.service.ISmsVerifyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,7 +26,7 @@ import java.util.List;
  * 验证码发送记录 前端控制器
  * </p>
  *
- * @author liugh123
+ * @author zhaozhonglong123
  */
 @RestController
 @RequestMapping("/smsVerify")

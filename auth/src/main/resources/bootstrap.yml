@@ -14,7 +14,7 @@ spring:
 
 mybatis-plus:
   mapper-locations: classpath:/mappers/*Mapper.xml
-  typeAliasesPackage: com.zzl.db.user
+  typeAliasesPackage: com.zzl.auth
 
 # register first, or cannot find spring-cloud-security
 eureka:

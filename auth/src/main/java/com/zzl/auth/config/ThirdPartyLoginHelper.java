@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.zzl.core.base.utils.HttpUtil;
-import com.zzl.db.user.vo.ThirdPartyUser;
+import com.zzl.core.base.domain.user.ThirdPartyUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.httpclient.NameValuePair;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 第三方登录辅助类
  *
- * @author liugh
+ * @author zhaozhonglong
  * @version 2018年7月25日 下午3:44:45
  */
 @Slf4j

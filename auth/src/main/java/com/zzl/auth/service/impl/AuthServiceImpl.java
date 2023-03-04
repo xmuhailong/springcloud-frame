@@ -1,11 +1,11 @@
 package com.zzl.auth.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zzl.auth.constant.CredentialType;
 import com.zzl.auth.service.IAuthService;
 import com.zzl.core.base.domain.ResultHelper;
+import com.zzl.core.base.enums.CredentialTypeEnum;
 import com.zzl.core.base.enums.ResultEnum;
-import com.zzl.db.user.vo.LoginModel;
+import com.zzl.core.base.domain.user.LoginModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.Valid;
 import java.net.URI;
 
 /**
@@ -54,7 +53,7 @@ public class AuthServiceImpl implements IAuthService {
 
             String[] params = loginModel.getUsername().split("\\|");
 
-            if (params.length == 1 || (CredentialType.USERNAME == CredentialType.valueOf(params[1]))) {
+            if (params.length == 1 || (CredentialTypeEnum.USERNAME == CredentialTypeEnum.valueOf(params[1]))) {
                 p.add("password", loginModel.getPassword());
             }
 

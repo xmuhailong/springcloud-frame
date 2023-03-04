@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * 统一响应
- * Created by liugh on 2019/6/1.
+ * Created by zhaozhonglong on 2019/6/1.
  */
 @ControllerAdvice
 @ResponseBody

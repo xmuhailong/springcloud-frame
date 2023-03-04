@@ -19,7 +19,6 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  * @version 1.0.0
  * @date 2021/1/27 10:24 下午
  */
-@Configuration
 @EnableResourceServer
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

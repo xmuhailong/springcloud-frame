@@ -3,7 +3,7 @@ package com.zzl.core.base.enums;
 /**
  * 用户账号类型
  *
- * @author liugh
+ * @author zhaozhonglong
  */
 public enum CredentialTypeEnum {
 
