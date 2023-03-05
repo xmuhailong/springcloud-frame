@@ -8,9 +8,15 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/xmuhailong/BASE_Config_Service
-          username: xmuhailong
-          password: Faihailong1
+          # git
+#          uri: https://github.com/xmuhailong/BASE_Config_Service
+#          username: xmuhailong
+#          password: Faihailong1
+
+          # gitee
+          uri: https://gitee.com/zhaozhonglong/config
+          username: zhaozhonglong
+          password: Hailong1
           search-paths: dev
 
 # register
