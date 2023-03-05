@@ -9,7 +9,7 @@ security:
 #      client-id: client1
 #      client-secret: client1
     resource:
-      user-info-uri: http://localhost:${server.port}/user-me
+      user-info-uri: http://localhost:2661/user-me
       prefer-token-info: false
 
 #  开启所有暴露端点: /routes端点 和 /bus-refresh
@@ -30,24 +30,20 @@ hystrix:
 #如下面的例子：所有满足/api-a/** 规则的访问都会被路由转发到//localhost:9001的地址
 #也就是说，我们访问http://localhost:5555/api-a/hello的时候，API网关服务就会将该请#求路由到 http://localhost:9001/hello提供的微服务接口上
 zuul:
-  sensitive-headers: Cookie,Set-Cookie
-  # 关闭服务自动创建路由规则，必须要如下配置才可以
   ignored-services: '*'
-  # prefix: /api
+  sensitive-headers: Access-Control-Allow-Origin
+  #需要忽略的头部信息，不在传播到其他服务
+  ignored-headers: Access-Control-Allow-Credentials,Access-Control-Allow-Origin,Vary,X-Frame-Options,token
+
   routes:
     # auth
     auth:
       path: /auth/**
-      #敏感头信息
-      sensitiveHeaders:
-      # 使用service-id代替url
       service-id: auth
 
     # meetingroom
     meetingroom:
       path: /meetingroom/**
-      #敏感头信息
-      sensitiveHeaders:
       # 使用service-id代替url
       service-id: meetingroom
 

@@ -1,9 +1,9 @@
 package com.zzl.auth.config;
 
 import com.zzl.core.base.constants.PermitAllUrl;
-import com.zzl.auth.custom.AuthExceptionEntryPoint;
 import com.zzl.auth.exception.MyAccessDeniedHandler;
 import com.zzl.auth.custom.CustomAccessDeniedHandler;
+import com.zzl.core.base.exception.auth.AuthExceptionEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
@@ -26,8 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 @EnableGlobalMethodSecurity(prePostEnabled = true)   // 启用注解权限配置
 @Order(3)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
-    private AuthExceptionEntryPoint authExceptionEntryPoint;
 
     @Autowired
     private CustomAccessDeniedHandler customAccessDeniedHandler;
@@ -62,7 +60,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         resources.resourceId("authorize-server");
 
         //这里把自定义异常加进去
-        resources.authenticationEntryPoint(authExceptionEntryPoint)
+        resources.authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(customAccessDeniedHandler);
     }
 

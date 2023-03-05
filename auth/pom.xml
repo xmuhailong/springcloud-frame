@@ -22,6 +22,30 @@
         </dependency>
 
         <dependency>
+            <groupId>com.cwbase</groupId>
+            <artifactId>logback-redis-appender</artifactId>
+            <version>${logback.redis.appender}</version>
+        </dependency>
+
+        <!--   sql needed begin    -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis.plus.version}</version>
@@ -32,6 +56,7 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
+        <!--   sql needed end    -->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -54,6 +79,8 @@
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
 
+
+
         <!-- spring cloud security client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -65,6 +92,7 @@
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
+
 
     </dependencies>
 </project>

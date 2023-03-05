@@ -1,6 +1,7 @@
 package com.zzl.core.base.exception.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
@@ -18,9 +19,8 @@ import java.io.IOException;
  * @author zhaozhonglong
  * @date  2021/1/26 12:34:58
  */
+@Slf4j
 public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
-    @Autowired
-    private ObjectMapper mapper;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
@@ -31,6 +31,10 @@ public class AuthExceptionEntryPoint implements AuthenticationEntryPoint {
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader("Content-Type", "application/json;charset=UTF-8");
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        log.info("授权不通过");
 
         try {
             if (cause instanceof OAuth2AccessDeniedException) {

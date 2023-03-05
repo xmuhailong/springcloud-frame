@@ -4,6 +4,7 @@ import com.zzl.core.base.constants.PermitAllUrl;
 import com.zzl.core.base.exception.auth.Auth2ResponseExceptionTranslator;
 import com.zzl.core.base.exception.auth.AuthExceptionEntryPoint;
 import com.zzl.core.base.exception.auth.CustomAccessDeniedHandler;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,13 +35,14 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().
+        http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll().and().csrf().disable().
                 //异常的时候处理 返回SC_UNAUTHORIZED --> 401状态码未授权异常
                         exceptionHandling().authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and().authorizeRequests()
-                //放行注解url
-                .antMatchers(PermitAllUrl.permitAllUrl("/api-f/**","/api-u/**","/api-m/**","/sys/login")).permitAll() // 放开权限的url
+                // 此处是放开auth服务下的所有请求，/sys/login 会通过feign访问auth服务下的接口
+                .antMatchers(PermitAllUrl.permitAllUrl("/auth/**","/sys/login")).permitAll() // 放开权限的url
                 .anyRequest().authenticated().and().httpBasic();
+
     }
 }

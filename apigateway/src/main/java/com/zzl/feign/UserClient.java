@@ -1,17 +1,13 @@
-package com.zzl.core.base.feign;
+package com.zzl.feign;
 
-import com.zzl.core.base.config.FeignInterceptorConfig;
-import com.zzl.core.base.domain.ResultHelper;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 
-@FeignClient(value = "auth",configuration = FeignInterceptorConfig.class)
+@FeignClient(value = "auth")
 public interface UserClient {
-    @GetMapping(value = "/users/{id}")
-    ResultHelper findUserById(@PathVariable(name = "id") String id);
 
     /**
      * 获取access_token<br>
