@@ -66,7 +66,7 @@ public class AuthServiceImpl implements IAuthService {
             ResponseEntity<String> exchange = restTemplate.exchange(URI.create(authTokenUrl),
                     HttpMethod.POST, entity, String.class);
             if (exchange.getStatusCodeValue() == HttpStatus.OK.value()) {
-                return ResultHelper.succeed(JSONObject.parse(exchange.getBody()));
+                return ResultHelper.succeed(JSONObject.parseObject(exchange.getBody()).get("data"));
             }
         } catch (HttpClientErrorException e) {
             log.error("调用授权中心失败：HttpClientErrorException", e);
